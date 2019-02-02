@@ -30,6 +30,9 @@
 	const frameTimeMax = 300
 	let frameIndex = 0
 
+	const bumpTimeMax = 100
+	let bumpTime = -bumpTimeMax
+
 	const playState = {
 		enter (game) {
 
@@ -67,9 +70,12 @@
 				}
 			}
 
-			context.drawImage(
-				images[`p-${player.direction}`],
+			const playerImage = performance.now() - bumpTime > bumpTimeMax
+				? `p-${player.direction}`
+				: `p-${player.direction}-b`
 
+			context.drawImage(
+				images[playerImage],
 				(player.x - cameraPosition.x) * tileSize.x - offset.x,
 				(player.y - cameraPosition.y) * tileSize.y - offset.y,
 			)
@@ -129,6 +135,7 @@
 			const nextCell = level[nextPosition.y][nextPosition.x]
 
 			if (nextCell.type === 'wall') {
+				bumpTime = performance.now()
 				return
 			}
 
@@ -145,6 +152,8 @@
 			}
 
 			if (nextCell.type === 'mob') {
+				bumpTime = performance.now()
+
 				nextCell.health -= Math.max(player.attack - nextCell.armor, 0)
 				if (nextCell.health < 0) {
 					nextCell.type = 'floor'
@@ -167,6 +176,8 @@
 			}
 
 			if (nextCell.type === 'key') {
+				bumpTime = performance.now()
+
 				if (!player.key) {
 					player.key = true
 					nextCell.type = 'floor'
@@ -176,6 +187,8 @@
 			}
 
 			if (nextCell.type === 'door') {
+				bumpTime = performance.now()
+
 				if (player.key) {
 					player.key = false
 					nextCell.type = 'floor'

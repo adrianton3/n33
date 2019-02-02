@@ -4,6 +4,7 @@
 	const imageUrls = {
 		'b1': 'art/b1.png',
 		'b2': 'art/b2.png',
+		'b2-1': 'art/b2-1.png',
 		'w1': 'art/w1.png',
 		'm1': 'art/m1.png',
 		'p-n': 'art/p-n.png',

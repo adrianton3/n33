@@ -16,6 +16,10 @@
 		y: Math.floor(tileSize.y / 2),
 	}
 
+	let frameTime = 0
+	const frameTimeMax = 300
+	let frameIndex = 0
+
 	const playState = {
 		enter (game) {
 
@@ -41,8 +45,12 @@
 						)
 					}
 
+					const image = cell.images != null
+						? cell.images[frameIndex % cell.images.length]
+						: cell.image
+
 					context.drawImage(
-						images[cell.image],
+						images[image],
 						j * tileSize.x - offset.x,
 						i * tileSize.y - offset.y,
 					)
@@ -64,8 +72,12 @@
 			// side panel
 			// stats
 		},
-		tick (game, { setState }) {
-			// animation frame
+		tick (game, { setState }, deltaTime) {
+			frameTime += deltaTime
+			if (frameTime > frameTimeMax) {
+				frameTime -= frameTimeMax
+				frameIndex++
+			}
 		},
 		handleKeyDown ({ world, levels }, { setState }, { key }) {
 			const level = levels['l1']

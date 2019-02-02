@@ -1,17 +1,27 @@
 (() => {
 	'use strict'
 
-	function makeFloor (image) {
+	function bundleImages (imageOrImages) {
+		return Array.isArray(imageOrImages)
+			? {
+				image: imageOrImages[0],
+				images: imageOrImages,
+			} : {
+				image: imageOrImages,
+			}
+	}
+
+	function makeFloor (imageOrImages) {
 		return {
 			type: 'floor',
-			image,
+			...bundleImages(imageOrImages)
 		}
 	}
 
-	function makeWall (image) {
+	function makeWall (imageOrImages) {
 		return {
 			type: 'wall',
-			image,
+			...bundleImages(imageOrImages),
 		}
 	}
 
@@ -21,7 +31,7 @@
 				health: 30,
 				attack: 1,
 				armor: 0,
-				image: 'm1',
+				...bundleImages('m1'),
 			},
 		}
 
@@ -34,7 +44,7 @@
 
 	const definitions = {
 		'background1': makeFloor('b1'),
-		'background2': makeFloor('b2'),
+		'background2': makeFloor(['b2', 'b2-1']),
 		'wall1': makeWall('w1'),
 		'mob1': makeMob('m1', 'b1'),
 	}

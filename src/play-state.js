@@ -100,6 +100,20 @@
 			drawText(context, images, `a ${player.attack}`, 50, 2 + 6)
 			drawText(context, images, `d ${player.armor}`, 70, 2 + 6)
 
+			{
+				const front = {
+					x: player.x + { 'n': 0, 'w': -1, 's': 0, 'e': 1 }[player.direction],
+					y: player.y + { 'n': -1, 'w': 0, 's': 1, 'e': 0 }[player.direction],
+				}
+
+				const frontCell = level[front.y][front.x]
+				if (frontCell.type === 'mob') {
+					drawText(context, images, `hp ${frontCell.health}`, 50, 2 + 14)
+					drawText(context, images, `a ${frontCell.attack}`, 50, 2 + 20)
+					drawText(context, images, `d ${frontCell.armor}`, 70, 2 + 20)
+				}
+			}
+
 			// map
 			// mobs
 			// player

@@ -133,6 +133,12 @@
 			if (nextCell.type === 'floor') {
 				player.x = nextPosition.x
 				player.y = nextPosition.y
+
+				player.health -= 5
+				if (player.health < 0) {
+					setState('dead')
+				}
+
 				return
 			}
 

@@ -158,6 +158,7 @@
 				if (nextCell.health < 0) {
 					nextCell.type = 'floor'
 					nextCell.image = nextCell.behind
+					nextCell.images = null
 					return
 				}
 

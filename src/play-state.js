@@ -43,7 +43,7 @@
 			}
 
 			context.drawImage(
-				images['p-e'],
+				images[`p-${player.direction}`],
 
 				(player.x - cameraPosition.x) * tileSize.x - offset.x,
 				(player.y - cameraPosition.y) * tileSize.y - offset.y,
@@ -62,24 +62,31 @@
 		},
 		handleKeyDown ({ world, levels }, { setState }, { key }) {
 			const level = levels['l1']
+			const { player } = world
 
 			if (key === 'ArrowUp') {
-				if (world.player.y > 0) {
-					world.player.y--
+				if (player.y > 0) {
+					player.y--
+					player.direction = 'n'
 				}
 			} else if (key === 'ArrowLeft') {
-				if (world.player.x > 0) {
-					world.player.x--
+				if (player.x > 0) {
+					player.x--
+					player.direction = 'w'
 				}
 			} else if (key === 'ArrowDown') {
-				if (world.player.y < level.size.y - 1) {
-					world.player.y++
+				if (player.y < level.size.y - 1) {
+					player.y++
+					player.direction = 's'
 				}
 			} else if (key === 'ArrowRight') {
-				if (world.player.x < level.size.x - 1) {
-					world.player.x++
+				if (player.x < level.size.x - 1) {
+					player.x++
+					player.direction = 'w'
 				}
 			}
+
+
 		},
 		exit () {
 

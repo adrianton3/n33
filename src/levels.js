@@ -72,9 +72,10 @@
 
 	function compileLevel (symbols, lines) {
 		const compiled = lines.map((line) =>
-			[...line].map((cell) =>
-				definitions[symbols[cell]]
-			)
+			[...line].map((cell) => {
+				const index = Math.floor(Math.random() * symbols[cell].length)
+				return definitions[symbols[cell][index]]
+			})
 		)
 
 		compiled.size = {
@@ -87,17 +88,18 @@
 
 	{
 		const symbols = {
-			'b': 'background1',
-			'B': 'background2',
-			'w': 'wall1',
-			'm': 'mob1',
-			'M': 'mob2',
-			'p': 'portal1-2',
+			'b': ['background1'],
+			'B': ['background2'],
+			'z': ['background1', 'background2'],
+			'w': ['wall1'],
+			'm': ['mob1'],
+			'M': ['mob2'],
+			'p': ['portal1-2'],
 		}
 
 		levels['l1'] = compileLevel(symbols, [
 			'wwwwwwwwwwwww',
-			'wbbwbbbbmbbbw',
+			'wzbwbbbbmbbbw',
 			'wbBbbBbbwbbbw',
 			'wbbBbbbbwbbbw',
 			'wbbbbbbbwbbbw',
@@ -110,10 +112,10 @@
 
 	{
 		const symbols = {
-			'b': 'background1',
-			'w': 'wall1',
-			'm': 'mob1',
-			'p': 'portal2-1',
+			'b': ['background1'],
+			'w': ['wall1'],
+			'm': ['mob1'],
+			'p': ['portal2-1'],
 		}
 
 		levels['l2'] = compileLevel(symbols, [

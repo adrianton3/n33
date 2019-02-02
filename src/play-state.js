@@ -74,6 +74,8 @@
 				(player.y - cameraPosition.y) * tileSize.y - offset.y,
 			)
 
+			context.drawImage(images['frame'], 0, 0)
+
 			drawText(context, images, `${player.health}`, 52, 8)
 
 			// map

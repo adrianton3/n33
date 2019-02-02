@@ -99,8 +99,25 @@
 				return
 			}
 
-			player.x = nextPosition.x
-			player.y = nextPosition.y
+			if (nextCell.type === 'floor') {
+				player.x = nextPosition.x
+				player.y = nextPosition.y
+				return
+			}
+
+			if (nextCell.type === 'mob') {
+				nextCell.health -= Math.max(player.attack - nextCell.armor, 0)
+				if (nextCell.health < 0) {
+					nextCell.type = 'floor'
+					nextCell.image = nextCell.behind
+					return
+				}
+
+				player.health -= Math.max(nextCell.attack - player.armor, 0)
+				if (player.health < 0) {
+					setState('dead')
+				}
+			}
 		},
 		exit () {
 

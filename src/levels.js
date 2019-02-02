@@ -12,15 +12,23 @@
 		return {
 			type: 'wall',
 			image,
-			blocking: true,
 		}
 	}
 
-	function makeMob () {
+	function makeMob (mobType, behind) {
+		const mobTypes = {
+			'm1': {
+				health: 30,
+				attack: 1,
+				armor: 0,
+				image: 'm1',
+			},
+		}
+
 		return {
 			type: 'mob',
-			image: 'm1', // mobType
-			behind: 'background1',
+			behind,
+			...mobTypes[mobType],
 		}
 	}
 
@@ -28,7 +36,7 @@
 		'background1': makeFloor('b1'),
 		'background2': makeFloor('b2'),
 		'wall1': makeWall('w1'),
-		'mob1': makeMob(),
+		'mob1': makeMob('m1', 'b1'),
 	}
 
 	const levels = {}

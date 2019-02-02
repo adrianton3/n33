@@ -96,6 +96,8 @@
 				y: 4,
 				direction: 'e',
 				health: 100,
+				attack: 2,
+				armor: 1,
 			},
 		}
 

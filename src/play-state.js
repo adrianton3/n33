@@ -22,10 +22,16 @@
 		},
 		draw ({ images, context, levels, world }) {
 			const level = levels['l1']
+			const { player } = world
+
+			const cameraPosition = {
+				x: Math.min(Math.max(player.x - 4, 0), level[0].length),
+				y: Math.min(Math.max(player.y - 4, 0), level.length),
+			}
 
 			for (let i = 0; i < cameraSize.y; i++) {
 				for (let j = 0; j < cameraSize.x; j++) {
-					const cell = level[world.player.y - 4 + i][world.player.x - 4 + j]
+					const cell = level[cameraPosition.y + i][cameraPosition.x + j]
 
 					context.drawImage(
 						images[cell.image],
@@ -35,6 +41,13 @@
 					)
 				}
 			}
+
+			context.drawImage(
+				images['p-e'],
+
+				(player.x - cameraPosition.x) * tileSize.x - offset.x,
+				(player.y - cameraPosition.y) * tileSize.y - offset.y,
+			)
 
 			// map
 			// mobs

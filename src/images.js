@@ -49,6 +49,7 @@
 		'p': 'art/font/p.png',
 		'frame': 'art/ui/frame.png',
 		'dead-screen': 'art/ui/dead-screen.png',
+		'particle': 'art/particle.png',
 	}
 
 	function loadImages () {

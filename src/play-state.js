@@ -39,7 +39,7 @@
 		enter (game) {
 
 		},
-		draw ({ images, context, levels, world }) {
+		draw ({ images, context, levels, world, particles }) {
 			const level = levels[world.player.level]
 			const { player } = world
 
@@ -94,6 +94,11 @@
 				(player.y - cameraPosition.y) * tileSize.y - offset.y,
 			)
 
+			particles.draw(
+				cameraPosition.x * tileSize.x - offset.x,
+				cameraPosition.y * tileSize.y - offset.y,
+			)
+
 			context.drawImage(images['frame'], 0, 0)
 
 			drawText(context, images, `hp ${player.health}`, 50, 2)
@@ -122,14 +127,16 @@
 			// side panel
 			// stats
 		},
-		tick (game, { setState }, deltaTime) {
+		tick ({ particles }, { setState }, deltaTime) {
+			particles.tick(deltaTime)
+
 			frameTime += deltaTime
 			if (frameTime > frameTimeMax) {
 				frameTime -= frameTimeMax
 				frameIndex++
 			}
 		},
-		handleKeyDown ({ world, levels }, { setState }, { key }) {
+		handleKeyDown ({ world, levels, particles }, { setState }, { key }) {
 			const level = levels[world.player.level]
 			const { player } = world
 
@@ -190,7 +197,20 @@
 					nextCell.type = 'floor'
 					nextCell.image = nextCell.behind
 					nextCell.images = null
+
+					particles.explode(
+						nextPosition.x * tileSize.x - offset.x,
+						nextPosition.y * tileSize.y - offset.y,
+						100,
+					)
+
 					return
+				} else {
+					particles.explode(
+						nextPosition.x * tileSize.x - offset.x,
+						nextPosition.y * tileSize.y - offset.y,
+						10,
+					)
 				}
 
 				player.health -= Math.max(nextCell.attack - player.armor, 0)

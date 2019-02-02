@@ -103,6 +103,7 @@
 		}
 
 		game.levels = n33.levels
+		game.particles = n33.makeParticles(game.context, game.images)
 
 		return { game, machine }
 	}

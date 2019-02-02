@@ -25,8 +25,8 @@
 			const { player } = world
 
 			const cameraPosition = {
-				x: Math.min(Math.max(player.x - 4, 0), level[0].length),
-				y: Math.min(Math.max(player.y - 4, 0), level.length),
+				x: Math.min(Math.max(player.x - 4, 0), level.size.x - cameraSize.x),
+				y: Math.min(Math.max(player.y - 4, 0), level.size.y - cameraSize.y),
 			}
 
 			for (let i = 0; i < cameraSize.y; i++) {
@@ -60,8 +60,26 @@
 		tick (game, { setState }) {
 			// animation frame
 		},
-		handleKeyDown (game, { setState }, { key }) {
+		handleKeyDown ({ world, levels }, { setState }, { key }) {
+			const level = levels['l1']
 
+			if (key === 'ArrowUp') {
+				if (world.player.y > 0) {
+					world.player.y--
+				}
+			} else if (key === 'ArrowLeft') {
+				if (world.player.x > 0) {
+					world.player.x--
+				}
+			} else if (key === 'ArrowDown') {
+				if (world.player.y < level.size.y - 1) {
+					world.player.y++
+				}
+			} else if (key === 'ArrowRight') {
+				if (world.player.x < level.size.x - 1) {
+					world.player.x++
+				}
+			}
 		},
 		exit () {
 

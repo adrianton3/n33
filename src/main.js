@@ -38,13 +38,15 @@
 
 		function handleKeyUp (event) {
 			if (machine[state].handleKeyUp != null) {
-				machine[state].handleKeyUp(game, event)
+				event.preventDefault()
+				machine[state].handleKeyUp(game, { setState }, event)
 			}
 		}
 
 		function handleKeyDown (event) {
-			if (machine[state].handleKeyUp != null) {
-				machine[state].handleKeyUp(game, event)
+			if (machine[state].handleKeyDown != null) {
+				event.preventDefault()
+				machine[state].handleKeyDown(game, { setState }, event)
 			}
 		}
 
@@ -54,12 +56,12 @@
 	function setupInputHandlers (canvas, machine) {
 		const keys = {}
 
-		canvas.addEventListener('keydown', (event) => {
+		window.addEventListener('keydown', (event) => {
 			keys[event.key] = true
 			machine.handleKeyDown(event)
 		})
 
-		canvas.addEventListener('keyup', (event) => {
+		window.addEventListener('keyup', (event) => {
 			keys[event.key] = false
 			machine.handleKeyUp(event)
 		})

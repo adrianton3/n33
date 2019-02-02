@@ -7,6 +7,8 @@
 		'b2-1': 'art/b2-1.png',
 		'w1': 'art/w1.png',
 		'm1': 'art/m1.png',
+		'm2': 'art/m2.png',
+		'm2-1': 'art/m2-1.png',
 		'p-n': 'art/p-n.png',
 		'p-w': 'art/p-w.png',
 		'p-s': 'art/p-s.png',

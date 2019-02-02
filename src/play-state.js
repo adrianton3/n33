@@ -33,9 +33,16 @@
 				for (let j = 0; j < cameraSize.x; j++) {
 					const cell = level[cameraPosition.y + i][cameraPosition.x + j]
 
+					if (cell.behind != null) {
+						context.drawImage(
+							images[cell.behind],
+							j * tileSize.x - offset.x,
+							i * tileSize.y - offset.y,
+						)
+					}
+
 					context.drawImage(
 						images[cell.image],
-
 						j * tileSize.x - offset.x,
 						i * tileSize.y - offset.y,
 					)

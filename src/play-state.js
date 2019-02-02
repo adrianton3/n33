@@ -33,9 +33,16 @@
 				for (let j = 0; j < cameraSize.x; j++) {
 					const cell = level[cameraPosition.y + i][cameraPosition.x + j]
 
+					if (cell.behind != null) {
+						context.drawImage(
+							images[cell.behind],
+							j * tileSize.x - offset.x,
+							i * tileSize.y - offset.y,
+						)
+					}
+
 					context.drawImage(
 						images[cell.image],
-
 						j * tileSize.x - offset.x,
 						i * tileSize.y - offset.y,
 					)
@@ -43,7 +50,7 @@
 			}
 
 			context.drawImage(
-				images['p-e'],
+				images[`p-${player.direction}`],
 
 				(player.x - cameraPosition.x) * tileSize.x - offset.x,
 				(player.y - cameraPosition.y) * tileSize.y - offset.y,
@@ -62,22 +69,60 @@
 		},
 		handleKeyDown ({ world, levels }, { setState }, { key }) {
 			const level = levels['l1']
+			const { player } = world
+
+			const nextPosition = {
+				x: player.x,
+				y: player.y,
+				direction: player.direction,
+			}
 
 			if (key === 'ArrowUp') {
-				if (world.player.y > 0) {
-					world.player.y--
-				}
+				nextPosition.y--
+				player.direction = 'n'
 			} else if (key === 'ArrowLeft') {
-				if (world.player.x > 0) {
-					world.player.x--
-				}
+				nextPosition.x--
+				player.direction = 'w'
 			} else if (key === 'ArrowDown') {
-				if (world.player.y < level.size.y - 1) {
-					world.player.y++
-				}
+				nextPosition.y++
+				player.direction = 's'
 			} else if (key === 'ArrowRight') {
-				if (world.player.x < level.size.x - 1) {
-					world.player.x++
+				nextPosition.x++
+				player.direction = 'e'
+			}
+
+			if (
+				nextPosition.x < 0 ||
+				nextPosition >= level.size.x ||
+				nextPosition.y < 0 ||
+				nextPosition >= level.size.y
+			) {
+				return
+			}
+
+			const nextCell = level[nextPosition.y][nextPosition.x]
+
+			if (nextCell.type === 'wall') {
+				return
+			}
+
+			if (nextCell.type === 'floor') {
+				player.x = nextPosition.x
+				player.y = nextPosition.y
+				return
+			}
+
+			if (nextCell.type === 'mob') {
+				nextCell.health -= Math.max(player.attack - nextCell.armor, 0)
+				if (nextCell.health < 0) {
+					nextCell.type = 'floor'
+					nextCell.image = nextCell.behind
+					return
+				}
+
+				player.health -= Math.max(nextCell.attack - player.armor, 0)
+				if (player.health < 0) {
+					setState('dead')
 				}
 			}
 		},

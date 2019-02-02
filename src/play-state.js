@@ -135,7 +135,7 @@
 				player.y = nextPosition.y
 
 				player.health -= 5
-				if (player.health < 0) {
+				if (player.health <= 0) {
 					setState('dead')
 				}
 
@@ -151,7 +151,7 @@
 				}
 
 				player.health -= Math.max(nextCell.attack - player.armor, 0)
-				if (player.health < 0) {
+				if (player.health <= 0) {
 					setState('dead')
 				}
 			}

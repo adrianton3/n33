@@ -23,6 +23,7 @@
 		'7': 'art/font/7.png',
 		'8': 'art/font/8.png',
 		'9': 'art/font/9.png',
+		'dead-screen': 'art/dead-screen.png',
 	}
 
 	function loadImages () {

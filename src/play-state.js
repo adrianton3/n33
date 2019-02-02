@@ -64,29 +64,43 @@
 			const level = levels['l1']
 			const { player } = world
 
-			if (key === 'ArrowUp') {
-				if (player.y > 0) {
-					player.y--
-					player.direction = 'n'
-				}
-			} else if (key === 'ArrowLeft') {
-				if (player.x > 0) {
-					player.x--
-					player.direction = 'w'
-				}
-			} else if (key === 'ArrowDown') {
-				if (player.y < level.size.y - 1) {
-					player.y++
-					player.direction = 's'
-				}
-			} else if (key === 'ArrowRight') {
-				if (player.x < level.size.x - 1) {
-					player.x++
-					player.direction = 'w'
-				}
+			const nextPosition = {
+				x: player.x,
+				y: player.y,
+				direction: player.direction,
 			}
 
+			if (key === 'ArrowUp') {
+				nextPosition.y--
+				player.direction = 'n'
+			} else if (key === 'ArrowLeft') {
+				nextPosition.x--
+				player.direction = 'w'
+			} else if (key === 'ArrowDown') {
+				nextPosition.y++
+				player.direction = 's'
+			} else if (key === 'ArrowRight') {
+				nextPosition.x++
+				player.direction = 'e'
+			}
 
+			if (
+				nextPosition.x < 0 ||
+				nextPosition >= level.size.x ||
+				nextPosition.y < 0 ||
+				nextPosition >= level.size.y
+			) {
+				return
+			}
+
+			const nextCell = level[nextPosition.y][nextPosition.x]
+
+			if (nextCell.type === 'wall') {
+				return
+			}
+
+			player.x = nextPosition.x
+			player.y = nextPosition.y
 		},
 		exit () {
 

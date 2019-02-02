@@ -34,11 +34,18 @@
 	const levels = {}
 
 	function compileLevel (symbols, lines) {
-		return lines.map((line) =>
+		const compiled = lines.map((line) =>
 			[...line].map((cell) =>
 				definitions[symbols[cell]]
 			)
 		)
+
+		compiled.size = {
+			x: lines[0].length,
+			y: lines.length,
+		}
+
+		return compiled
 	}
 
 	{

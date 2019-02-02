@@ -22,10 +22,16 @@
 		},
 		draw ({ images, context, levels, world }) {
 			const level = levels['l1']
+			const { player } = world
+
+			const cameraPosition = {
+				x: Math.min(Math.max(player.x - 4, 0), level.size.x - cameraSize.x),
+				y: Math.min(Math.max(player.y - 4, 0), level.size.y - cameraSize.y),
+			}
 
 			for (let i = 0; i < cameraSize.y; i++) {
 				for (let j = 0; j < cameraSize.x; j++) {
-					const cell = level[world.player.y - 4 + i][world.player.x - 4 + j]
+					const cell = level[cameraPosition.y + i][cameraPosition.x + j]
 
 					context.drawImage(
 						images[cell.image],
@@ -35,6 +41,13 @@
 					)
 				}
 			}
+
+			context.drawImage(
+				images['p-e'],
+
+				(player.x - cameraPosition.x) * tileSize.x - offset.x,
+				(player.y - cameraPosition.y) * tileSize.y - offset.y,
+			)
 
 			// map
 			// mobs
@@ -47,8 +60,26 @@
 		tick (game, { setState }) {
 			// animation frame
 		},
-		handleKeyDown (game, { setState }, { key }) {
+		handleKeyDown ({ world, levels }, { setState }, { key }) {
+			const level = levels['l1']
 
+			if (key === 'ArrowUp') {
+				if (world.player.y > 0) {
+					world.player.y--
+				}
+			} else if (key === 'ArrowLeft') {
+				if (world.player.x > 0) {
+					world.player.x--
+				}
+			} else if (key === 'ArrowDown') {
+				if (world.player.y < level.size.y - 1) {
+					world.player.y++
+				}
+			} else if (key === 'ArrowRight') {
+				if (world.player.x < level.size.x - 1) {
+					world.player.x++
+				}
+			}
 		},
 		exit () {
 

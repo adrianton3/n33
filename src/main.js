@@ -94,6 +94,7 @@
 			player: {
 				x: 4,
 				y: 4,
+				level: 'l1',
 				direction: 'e',
 				health: 100,
 				attack: 2,
@@ -102,6 +103,7 @@
 		}
 
 		game.levels = n33.levels
+		game.particles = n33.makeParticles(game.context, game.images)
 
 		return { game, machine }
 	}
@@ -111,6 +113,7 @@
 
 		machine.addState('start', { tick (game, { setState }) { setState('play') } })
 		machine.addState('play', n33.playState)
+		machine.addState('dead', n33.deadState)
 
 		;(() => {
 			let lastTime = performance.now()

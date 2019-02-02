@@ -1,6 +1,16 @@
 (() => {
 	'use strict'
 
+	// move out
+	function drawText (context, images, string, x, y) {
+		let cursor = x
+		for (let i = 0; i < string.length; i++) {
+			const image = images[string[i]]
+			context.drawImage(image, cursor, y)
+			cursor += image.width + 1
+		}
+	}
+
 	const cameraSize = {
 		x: 7,
 		y: 7,
@@ -16,12 +26,21 @@
 		y: Math.floor(tileSize.y / 2),
 	}
 
+	let frameTime = 0
+	const frameTimeMax = 300
+	let frameIndex = 0
+
+	const bumpTimeMax = 100
+	let bumpTime = -bumpTimeMax
+
+	const hurtTimeMax = 100
+
 	const playState = {
 		enter (game) {
 
 		},
-		draw ({ images, context, levels, world }) {
-			const level = levels['l1']
+		draw ({ images, context, levels, world, particles }) {
+			const level = levels[world.player.level]
 			const { player } = world
 
 			const cameraPosition = {
@@ -41,20 +60,64 @@
 						)
 					}
 
-					context.drawImage(
-						images[cell.image],
-						j * tileSize.x - offset.x,
-						i * tileSize.y - offset.y,
-					)
+					if (
+						cell.hurtTime != null &&
+						cell.hurtImage != null &&
+						performance.now() - cell.hurtTime < hurtTimeMax
+					) {
+						context.drawImage(
+							images[cell.hurtImage],
+							j * tileSize.x - offset.x,
+							i * tileSize.y - offset.y,
+						)
+					} else {
+						const image = cell.images != null
+							? cell.images[frameIndex % cell.images.length]
+							: cell.image
+
+						context.drawImage(
+							images[image],
+							j * tileSize.x - offset.x,
+							i * tileSize.y - offset.y,
+						)
+					}
 				}
 			}
 
-			context.drawImage(
-				images[`p-${player.direction}`],
+			const playerImage = performance.now() - bumpTime > bumpTimeMax
+				? `p-${player.direction}`
+				: `p-${player.direction}-b`
 
+			context.drawImage(
+				images[playerImage],
 				(player.x - cameraPosition.x) * tileSize.x - offset.x,
 				(player.y - cameraPosition.y) * tileSize.y - offset.y,
 			)
+
+			particles.draw(
+				cameraPosition.x * tileSize.x - offset.x,
+				cameraPosition.y * tileSize.y - offset.y,
+			)
+
+			context.drawImage(images['frame'], 0, 0)
+
+			drawText(context, images, `hp ${player.health}`, 50, 2)
+			drawText(context, images, `a ${player.attack}`, 50, 2 + 6)
+			drawText(context, images, `d ${player.armor}`, 70, 2 + 6)
+
+			{
+				const front = {
+					x: player.x + { 'n': 0, 'w': -1, 's': 0, 'e': 1 }[player.direction],
+					y: player.y + { 'n': -1, 'w': 0, 's': 1, 'e': 0 }[player.direction],
+				}
+
+				const frontCell = level[front.y][front.x]
+				if (frontCell.type === 'mob') {
+					drawText(context, images, `hp ${frontCell.health}`, 50, 2 + 14)
+					drawText(context, images, `a ${frontCell.attack}`, 50, 2 + 20)
+					drawText(context, images, `d ${frontCell.armor}`, 70, 2 + 20)
+				}
+			}
 
 			// map
 			// mobs
@@ -64,11 +127,17 @@
 			// side panel
 			// stats
 		},
-		tick (game, { setState }) {
-			// animation frame
+		tick ({ particles }, { setState }, deltaTime) {
+			particles.tick(deltaTime)
+
+			frameTime += deltaTime
+			if (frameTime > frameTimeMax) {
+				frameTime -= frameTimeMax
+				frameIndex++
+			}
 		},
-		handleKeyDown ({ world, levels }, { setState }, { key }) {
-			const level = levels['l1']
+		handleKeyDown ({ world, levels, particles }, { setState }, { key }) {
+			const level = levels[world.player.level]
 			const { player } = world
 
 			const nextPosition = {
@@ -103,27 +172,81 @@
 			const nextCell = level[nextPosition.y][nextPosition.x]
 
 			if (nextCell.type === 'wall') {
+				bumpTime = performance.now()
 				return
 			}
 
 			if (nextCell.type === 'floor') {
 				player.x = nextPosition.x
 				player.y = nextPosition.y
+
+				player.health -= 5
+				if (player.health <= 0) {
+					setState('dead')
+				}
+
 				return
 			}
 
 			if (nextCell.type === 'mob') {
+				bumpTime = performance.now()
+				nextCell.hurtTime = bumpTime
+
 				nextCell.health -= Math.max(player.attack - nextCell.armor, 0)
 				if (nextCell.health < 0) {
 					nextCell.type = 'floor'
 					nextCell.image = nextCell.behind
+					nextCell.images = null
+
+					particles.explode(
+						nextPosition.x * tileSize.x - offset.x,
+						nextPosition.y * tileSize.y - offset.y,
+						100,
+					)
+
 					return
+				} else {
+					particles.explode(
+						nextPosition.x * tileSize.x - offset.x,
+						nextPosition.y * tileSize.y - offset.y,
+						10,
+					)
 				}
 
 				player.health -= Math.max(nextCell.attack - player.armor, 0)
-				if (player.health < 0) {
+				if (player.health <= 0) {
 					setState('dead')
 				}
+				return
+			}
+
+			if (nextCell.type === 'portal') {
+				player.level = nextCell.level
+				player.x = nextCell.x
+				player.y = nextCell.y
+				return
+			}
+
+			if (nextCell.type === 'key') {
+				bumpTime = performance.now()
+
+				if (!player.key) {
+					player.key = true
+					nextCell.type = 'floor'
+					nextCell.image = nextCell.behind
+				}
+				return
+			}
+
+			if (nextCell.type === 'door') {
+				bumpTime = performance.now()
+
+				if (player.key) {
+					player.key = false
+					nextCell.type = 'floor'
+					nextCell.image = nextCell.behind
+				}
+				return
 			}
 		},
 		exit () {

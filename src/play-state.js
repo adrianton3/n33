@@ -35,7 +35,7 @@
 
 		},
 		draw ({ images, context, levels, world }) {
-			const level = levels['l1']
+			const level = levels[world.player.level]
 			const { player } = world
 
 			const cameraPosition = {
@@ -92,7 +92,7 @@
 			}
 		},
 		handleKeyDown ({ world, levels }, { setState }, { key }) {
-			const level = levels['l1']
+			const level = levels[world.player.level]
 			const { player } = world
 
 			const nextPosition = {
@@ -154,6 +154,13 @@
 				if (player.health <= 0) {
 					setState('dead')
 				}
+				return
+			}
+
+			if (nextCell.type === 'portal') {
+				player.level = nextCell.level
+				player.x = nextCell.x
+				player.y = nextCell.y
 			}
 		},
 		exit () {

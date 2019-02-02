@@ -25,6 +25,16 @@
 		}
 	}
 
+	function makePortal (image, level, x, y) {
+		return {
+			type: 'portal',
+			image,
+			x,
+			y,
+			level,
+		}
+	}
+
 	function makeMob (mobType, behind) {
 		const mobTypes = {
 			'm1': {
@@ -54,6 +64,8 @@
 		'wall1': makeWall('w1'),
 		'mob1': makeMob('m1','b1'),
 		'mob2': makeMob('m2','b1'),
+		'portal1-2': makePortal('p1', 'l2', 4, 4),
+		'portal2-1': makePortal('p1', 'l1', 4, 4),
 	}
 
 	const levels = {}
@@ -80,6 +92,7 @@
 			'w': 'wall1',
 			'm': 'mob1',
 			'M': 'mob2',
+			'p': 'portal1-2',
 		}
 
 		levels['l1'] = compileLevel(symbols, [
@@ -89,6 +102,29 @@
 			'wbbBbbbbwbbbw',
 			'wbbbbbbbwbbbw',
 			'wbbbbBbbMbbbw',
+			'wbbbbbmbwbbbw',
+			'wbbbbBbbbbpbw',
+			'wwwwwwwwwwwww',
+		])
+	}
+
+	{
+		const symbols = {
+			'b': 'background1',
+			'w': 'wall1',
+			'm': 'mob1',
+			'p': 'portal2-1',
+		}
+
+		levels['l2'] = compileLevel(symbols, [
+			'wwwwwwwwwwwww',
+			'wbbbbbbbbbbbw',
+			'wbbbbbbbbpbbw',
+			'wbbbbbbbbbbbw',
+			'wbbbbbwbbbbbw',
+			'wbbbbbbbbbbbw',
+			'wbbbbbbbbbbbw',
+			'wbbbbbbbbbbbw',
 			'wwwwwwwwwwwww',
 		])
 	}

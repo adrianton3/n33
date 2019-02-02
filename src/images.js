@@ -2,6 +2,7 @@
 	'use strict'
 
 	const imageUrls = {
+		'p1': 'art/p1.png',
 		'b1': 'art/b1.png',
 		'b2': 'art/b2.png',
 		'b2-1': 'art/b2-1.png',

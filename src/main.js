@@ -94,6 +94,7 @@
 			player: {
 				x: 4,
 				y: 4,
+				level: 'l1',
 				direction: 'e',
 				health: 100,
 				attack: 2,

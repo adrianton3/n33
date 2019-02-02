@@ -96,7 +96,9 @@
 
 			context.drawImage(images['frame'], 0, 0)
 
-			drawText(context, images, `${player.health}`, 52, 8)
+			drawText(context, images, `hp ${player.health}`, 50, 2)
+			drawText(context, images, `a ${player.attack}`, 50, 2 + 6)
+			drawText(context, images, `d ${player.armor}`, 70, 2 + 6)
 
 			// map
 			// mobs

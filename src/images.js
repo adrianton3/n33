@@ -42,6 +42,11 @@
 		'7': 'art/font/7.png',
 		'8': 'art/font/8.png',
 		'9': 'art/font/9.png',
+		' ': 'art/font/space.png',
+		'a': 'art/font/a.png',
+		'd': 'art/font/d.png',
+		'h': 'art/font/h.png',
+		'p': 'art/font/p.png',
 		'frame': 'art/ui/frame.png',
 		'dead-screen': 'art/ui/dead-screen.png',
 	}

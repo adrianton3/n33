@@ -78,6 +78,14 @@
 		'background1': makeFloor('b1'),
 		'background2': makeFloor(['b2', 'b2-1']),
 		'wall1': makeWall('w1'),
+		'wall-n': makeWall('w-n'),
+		'wall-nw': makeWall('w-nw'),
+		'wall-w': makeWall('w-w'),
+		'wall-sw': makeWall('w-sw'),
+		'wall-s': makeWall('w-s'),
+		'wall-se': makeWall('w-se'),
+		'wall-e': makeWall('w-e'),
+		'wall-ne': makeWall('w-ne'),
 		'mob1': makeMob('m1','b1'),
 		'mob2': makeMob('m2','b1'),
 		'portal1-2': makePortal('p1', 'l2', 4, 4),
@@ -100,6 +108,21 @@
 			x: lines[0].length,
 			y: lines.length,
 		}
+
+		for (let i = 0; i < compiled.size.x; i++) {
+			compiled[0][i] = definitions['wall-s']
+			compiled[compiled.size.y - 1][i] = definitions['wall-n']
+		}
+
+		for (let i = 0; i < compiled.size.y; i++) {
+			compiled[i][0] = definitions['wall-e']
+			compiled[i][compiled.size.x - 1] = definitions['wall-w']
+		}
+
+		compiled[0][0] = definitions['wall-se']
+		compiled[compiled.size.y - 1][0] = definitions['wall-ne']
+		compiled[0][compiled.size.x - 1] = definitions['wall-sw']
+		compiled[compiled.size.y - 1][compiled.size.x - 1] = definitions['wall-nw']
 
 		return compiled
 	}

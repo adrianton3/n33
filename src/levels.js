@@ -57,13 +57,15 @@
 				health: 30,
 				attack: 2,
 				armor: 0,
-				...bundleImages(['m1', 'm1-1', 'm1-2', 'm1-3'],),
+				...bundleImages(['m1', 'm1-1', 'm1-2', 'm1-3']),
+				hurtImage: 'w1',
 			},
 			'm2': {
 				health: 10,
 				attack: 2,
 				armor: 0,
-				...bundleImages(['m2', 'm2-1'],),
+				...bundleImages(['m2', 'm2-1']),
+				hurtImage: 'w1',
 			},
 		}
 

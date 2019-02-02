@@ -33,6 +33,8 @@
 	const bumpTimeMax = 100
 	let bumpTime = -bumpTimeMax
 
+	const hurtTimeMax = 100
+
 	const playState = {
 		enter (game) {
 
@@ -58,15 +60,27 @@
 						)
 					}
 
-					const image = cell.images != null
-						? cell.images[frameIndex % cell.images.length]
-						: cell.image
+					if (
+						cell.hurtTime != null &&
+						cell.hurtImage != null &&
+						performance.now() - cell.hurtTime < hurtTimeMax
+					) {
+						context.drawImage(
+							images[cell.hurtImage],
+							j * tileSize.x - offset.x,
+							i * tileSize.y - offset.y,
+						)
+					} else {
+						const image = cell.images != null
+							? cell.images[frameIndex % cell.images.length]
+							: cell.image
 
-					context.drawImage(
-						images[image],
-						j * tileSize.x - offset.x,
-						i * tileSize.y - offset.y,
-					)
+						context.drawImage(
+							images[image],
+							j * tileSize.x - offset.x,
+							i * tileSize.y - offset.y,
+						)
+					}
 				}
 			}
 
@@ -153,6 +167,7 @@
 
 			if (nextCell.type === 'mob') {
 				bumpTime = performance.now()
+				nextCell.hurtTime = bumpTime
 
 				nextCell.health -= Math.max(player.attack - nextCell.armor, 0)
 				if (nextCell.health < 0) {

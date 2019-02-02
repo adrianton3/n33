@@ -161,6 +161,25 @@
 				player.level = nextCell.level
 				player.x = nextCell.x
 				player.y = nextCell.y
+				return
+			}
+
+			if (nextCell.type === 'key') {
+				if (!player.key) {
+					player.key = true
+					nextCell.type = 'floor'
+					nextCell.image = nextCell.behind
+				}
+				return
+			}
+
+			if (nextCell.type === 'door') {
+				if (player.key) {
+					player.key = false
+					nextCell.type = 'floor'
+					nextCell.image = nextCell.behind
+				}
+				return
 			}
 		},
 		exit () {

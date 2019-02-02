@@ -35,6 +35,22 @@
 		}
 	}
 
+	function makeKey (image, behind) {
+		return {
+			type: 'key',
+			image,
+			behind,
+		}
+	}
+
+	function makeDoor (image, behind) {
+		return {
+			type: 'door',
+			image,
+			behind,
+		}
+	}
+
 	function makeMob (mobType, behind) {
 		const mobTypes = {
 			'm1': {
@@ -66,6 +82,8 @@
 		'mob2': makeMob('m2','b1'),
 		'portal1-2': makePortal('p1', 'l2', 4, 4),
 		'portal2-1': makePortal('p1', 'l1', 4, 4),
+		'key1': makeKey('k1', 'b1'),
+		'door1': makeDoor('d1', 'b1'),
 	}
 
 	const levels = {}
@@ -95,15 +113,17 @@
 			'm': ['mob1'],
 			'M': ['mob2'],
 			'p': ['portal1-2'],
+			'k': ['key1'],
+			'd': ['door1'],
 		}
 
 		levels['l1'] = compileLevel(symbols, [
 			'wwwwwwwwwwwww',
 			'wzbwbbbbmbbbw',
-			'wbBbbBbbwbbbw',
+			'wbBbbBbkwbbbw',
 			'wbbBbbbbwbbbw',
 			'wbbbbbbbwbbbw',
-			'wbbbbBbbMbbbw',
+			'wbbdbBbbMbbbw',
 			'wbbbbbmbwbbbw',
 			'wbbbbBbbbbpbw',
 			'wwwwwwwwwwwww',

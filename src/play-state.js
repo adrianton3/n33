@@ -1,6 +1,16 @@
 (() => {
 	'use strict'
 
+	// move out
+	function drawText (context, images, string, x, y) {
+		let cursor = x
+		for (let i = 0; i < string.length; i++) {
+			const image = images[string[i]]
+			context.drawImage(image, cursor, y)
+			cursor += image.width + 1
+		}
+	}
+
 	const cameraSize = {
 		x: 7,
 		y: 7,
@@ -63,6 +73,8 @@
 				(player.x - cameraPosition.x) * tileSize.x - offset.x,
 				(player.y - cameraPosition.y) * tileSize.y - offset.y,
 			)
+
+			drawText(context, images, `${player.health}`, 52, 8)
 
 			// map
 			// mobs

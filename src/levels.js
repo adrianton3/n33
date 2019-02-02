@@ -29,7 +29,7 @@
 		const mobTypes = {
 			'm1': {
 				health: 30,
-				attack: 1,
+				attack: 2,
 				armor: 0,
 				...bundleImages(['m2', 'm2-1'],),
 			},

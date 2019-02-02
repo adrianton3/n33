@@ -13,6 +13,16 @@
 		'p-w': 'art/p-w.png',
 		'p-s': 'art/p-s.png',
 		'p-e': 'art/p-e.png',
+		'0': 'art/font/0.png',
+		'1': 'art/font/1.png',
+		'2': 'art/font/2.png',
+		'3': 'art/font/3.png',
+		'4': 'art/font/4.png',
+		'5': 'art/font/5.png',
+		'6': 'art/font/6.png',
+		'7': 'art/font/7.png',
+		'8': 'art/font/8.png',
+		'9': 'art/font/9.png',
 	}
 
 	function loadImages () {

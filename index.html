@@ -7,19 +7,59 @@
         body {
             background: #22291e;
         }
+
+        .center {
+            text-align: center;
+        }
+
+        .info {
+            font-family: "Consolas", monospace, sans-serif;
+            color: #c7f0d8;
+        }
+
+        a {
+            color: #c7f0d8;
+        }
+
+        .clickable {
+            background-color: #c7f0d8;
+            color: #43523d;
+        }
     </style>
 </head>
 <body>
-    <canvas id="can"></canvas>
+    <div class="center">
+        <canvas id="can"></canvas>
+    </div>
+
+    <div class="center info">
+        <p>Welcome to the serpeant's dungeon!</p>
+        <p>Move and attack with arrow keys</p>
+        <p>Interact with A</p>
+        <p><span class="clickable" onclick="document.getElementById('can').style.filter=`hue-rotate(${Math.random()*360|0}deg)`">Hue rotate!</span></p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p>By Adrian & Gavelli for <a href="https://itch.io/jam/3310jam">3310 jam</a></p>
+        <p>Source on <a href="https://github.com/adrianton3/n33">github</a></p>
+    </div>
 
     <script>
         'use strict'
 		window.n33 = window.n33 || {}
     </script>
 
+    <script src="src/audio.js"></script>
     <script src="src/images.js"></script>
+    <script src="src/particles.js"></script>
     <script src="src/levels.js"></script>
+    <script src="src/start-state.js"></script>
     <script src="src/play-state.js"></script>
+    <script src="src/dead-state.js"></script>
+    <script src="src/stair-state.js"></script>
+    <script src="src/shop-state.js"></script>
+    <script src="src/win-state.js"></script>
     <script src="src/main.js"></script>
 </body>
 </html>

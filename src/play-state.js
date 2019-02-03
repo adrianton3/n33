@@ -75,11 +75,13 @@
 							? cell.images[frameIndex % cell.images.length]
 							: cell.image
 
-						context.drawImage(
-							images[image],
-							j * tileSize.x - offset.x,
-							i * tileSize.y - offset.y,
-						)
+						if (image != null) {
+							context.drawImage(
+								images[image],
+								j * tileSize.x - offset.x,
+								i * tileSize.y - offset.y,
+							)
+						}
 					}
 				}
 			}
@@ -101,9 +103,15 @@
 
 			context.drawImage(images['frame'], 0, 0)
 
-			drawText(context, images, `hp ${player.health}`, 50, 2)
-			drawText(context, images, `a ${player.attack}`, 50, 2 + 6)
-			drawText(context, images, `d ${player.armor}`, 70, 2 + 6)
+			for (let i = 0; i < player.lives; i++) {
+				context.drawImage(images['heart'], 50 + i * 8 - 1, 2)
+			}
+
+			drawText(context, images, `xp ${player.xp}`, 50, 2 + 10)
+
+			drawText(context, images, `hp ${player.health}`, 50, 21)
+			drawText(context, images, `a ${player.attack}`, 50, 27)
+			drawText(context, images, `d ${player.armor}`, 70, 27)
 
 			{
 				const front = {
@@ -113,19 +121,13 @@
 
 				const frontCell = level[front.y][front.x]
 				if (frontCell.type === 'mob') {
-					drawText(context, images, `hp ${frontCell.health}`, 50, 2 + 14)
-					drawText(context, images, `a ${frontCell.attack}`, 50, 2 + 20)
-					drawText(context, images, `d ${frontCell.armor}`, 70, 2 + 20)
+					drawText(context, images, `hp ${frontCell.health}`, 50, 35)
+					drawText(context, images, `a ${frontCell.attack}`, 50, 41)
+					drawText(context, images, `d ${frontCell.armor}`, 70, 41)
 				}
 			}
 
-			// map
-			// mobs
-			// player
-			// effects
-			// border
-			// side panel
-			// stats
+
 		},
 		tick ({ particles }, { setState }, deltaTime) {
 			particles.tick(deltaTime)
@@ -136,7 +138,7 @@
 				frameIndex++
 			}
 		},
-		handleKeyDown ({ world, levels, particles }, { setState }, { key }) {
+		handleKeyDown ({ world, levels, particles, audio }, { setState }, { key }) {
 			const level = levels[world.player.level]
 			const { player } = world
 
@@ -185,6 +187,8 @@
 					setState('dead')
 				}
 
+				audio.tone(110, 0.05)
+
 				return
 			}
 
@@ -194,18 +198,26 @@
 
 				nextCell.health -= Math.max(player.attack - nextCell.armor, 0)
 				if (nextCell.health < 0) {
+					player.xp += nextCell.xpReward
+
 					nextCell.type = 'floor'
 					nextCell.image = nextCell.behind
 					nextCell.images = null
 
+					audio.tone(220, 0.1)
 					particles.explode(
 						nextPosition.x * tileSize.x - offset.x,
 						nextPosition.y * tileSize.y - offset.y,
 						100,
 					)
 
+					if (nextCell.boss) {
+						setState('win')
+					}
+
 					return
 				} else {
+					audio.tone(440, 0.2)
 					particles.explode(
 						nextPosition.x * tileSize.x - offset.x,
 						nextPosition.y * tileSize.y - offset.y,
@@ -224,6 +236,12 @@
 				player.level = nextCell.level
 				player.x = nextCell.x
 				player.y = nextCell.y
+
+				player.checkpoint.level = nextCell.level
+				player.checkpoint.x = nextCell.x
+				player.checkpoint.y = nextCell.y
+
+				setState('stair', { screenImage: nextCell.screenImage })
 				return
 			}
 

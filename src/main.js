@@ -84,26 +84,42 @@
 
 	function setup (extras) {
 		const game = { ...extras }
+
+		function init () {
+			game.world = {
+				player: {
+					x: 4,
+					y: 4,
+					level: 'l1',
+					direction: 'e',
+					lives: 3,
+					health: 100,
+					healthMax: 100,
+					attack: 1,
+					armor: 0,
+					checkpoint: {
+						x: 4,
+						y: 4,
+						level: 'l1',
+					},
+					xp: 0,
+				},
+			}
+
+			game.levels = n33.compileLevels()
+		}
+
 		const canvas = document.getElementById('can')
 		game.context = setupContext(canvas)
 
 		const machine = makeMachine(game)
 		game.keys = setupInputHandlers(canvas, machine)
 
-		game.world = {
-			player: {
-				x: 4,
-				y: 4,
-				level: 'l1',
-				direction: 'e',
-				health: 100,
-				attack: 2,
-				armor: 1,
-			},
-		}
-
-		game.levels = n33.levels
 		game.particles = n33.makeParticles(game.context, game.images)
+		game.audio = n33.makeBuzzer()
+
+		init()
+		game.init = init
 
 		return { game, machine }
 	}
@@ -111,9 +127,12 @@
 	n33.loadImages().then((images) => {
 		const { machine } = setup({ images })
 
-		machine.addState('start', { tick (game, { setState }) { setState('play') } })
+		machine.addState('start', n33.startState)
 		machine.addState('play', n33.playState)
 		machine.addState('dead', n33.deadState)
+		machine.addState('stair', n33.stairState)
+		machine.addState('shop', n33.shopState)
+		machine.addState('win', n33.winState)
 
 		;(() => {
 			let lastTime = performance.now()

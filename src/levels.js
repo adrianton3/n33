@@ -25,13 +25,14 @@
 		}
 	}
 
-	function makePortal (image, level, x, y) {
+	function makePortal (image, level, x, y, screenImage) {
 		return {
 			type: 'portal',
 			image,
 			x,
 			y,
 			level,
+			screenImage,
 		}
 	}
 
@@ -56,16 +57,35 @@
 			'm1': {
 				health: 30,
 				attack: 2,
-				armor: 0,
+				armor: 1,
 				...bundleImages(['m1', 'm1-1', 'm1-2', 'm1-3']),
-				hurtImage: 'w1',
+				hurtImage: 'm1-d',
+				xpReward: 15,
 			},
 			'm2': {
 				health: 10,
 				attack: 2,
 				armor: 0,
 				...bundleImages(['m2', 'm2-1']),
-				hurtImage: 'w1',
+				hurtImage: 'm2-d',
+				xpReward: 10,
+			},
+			'm3': {
+				health: 6,
+				attack: 2,
+				armor: 0,
+				...bundleImages(['m3', 'm3-1']),
+				hurtImage: 'm3-d',
+				xpReward: 5,
+			},
+			'boss': {
+				health: 100,
+				attack: 5,
+				armor: 3,
+				...bundleImages('boss'),
+				// hurtImage: 'boss-d',
+				xpReward: 0,
+				boss: true,
 			},
 		}
 
@@ -77,32 +97,29 @@
 	}
 
 	const definitions = {
-		'background1': makeFloor('b1'),
-		'background2': makeFloor(['b2', 'b2-1']),
-		'wall1': makeWall('w1'),
-		'wall-n': makeWall('w-n'),
-		'wall-nw': makeWall('w-nw'),
-		'wall-w': makeWall('w-w'),
-		'wall-sw': makeWall('w-sw'),
-		'wall-s': makeWall('w-s'),
-		'wall-se': makeWall('w-se'),
-		'wall-e': makeWall('w-e'),
-		'wall-ne': makeWall('w-ne'),
-		'mob1': makeMob('m1','b1'),
-		'mob2': makeMob('m2','b1'),
-		'portal1-2': makePortal('p1', 'l2', 4, 4),
-		'portal2-1': makePortal('p1', 'l1', 4, 4),
-		'key1': makeKey('k1', 'b1'),
-		'door1': makeDoor('d1', 'b1'),
+		'background1': [makeFloor, 'b1'],
+		'background2': [makeFloor, 'b2'],
+		'background3': [makeFloor, 'b3'],
+		'background4': [makeFloor, 'b4'],
+		'background5': [makeFloor, 'b5'],
+		'wall1': [makeWall, 'w1'],
+		'mob1': [makeMob, 'm1','b1'],
+		'mob2': [makeMob, 'm2','b1'],
+		'mob3': [makeMob, 'm3','b1'],
+		'portal1-2': [makePortal, 's1', 'l2', 10, 6, 'stair-screen'],
+		'portal2-3': [makePortal, 's1', 'l3', 3, 3, 'stair-screen'],
+		'portal3-4': [makePortal, 's1', 'l4', 4, 4, 'stair-screen'],
+		'portal4-5': [makePortal, 's1', 'l5', 3, 10, 'stair-screen'],
+		'key1': [makeKey, 'k1', 'b1'],
+		'door1': [makeDoor, 'd1', 'b1'],
 	}
-
-	const levels = {}
 
 	function compileLevel (symbols, lines) {
 		const compiled = lines.map((line) =>
 			[...line].map((cell) => {
 				const index = Math.floor(Math.random() * symbols[cell].length)
-				return definitions[symbols[cell][index]]
+				const [ make, ...params ] = definitions[symbols[cell][index]]
+				return make(...params)
 			})
 		)
 
@@ -112,72 +129,184 @@
 		}
 
 		for (let i = 0; i < compiled.size.x; i++) {
-			compiled[0][i] = definitions['wall-s']
-			compiled[compiled.size.y - 1][i] = definitions['wall-n']
+			compiled[0][i] = makeWall('w-s')
+			compiled[compiled.size.y - 1][i] = makeWall('w-n')
 		}
 
 		for (let i = 0; i < compiled.size.y; i++) {
-			compiled[i][0] = definitions['wall-e']
-			compiled[i][compiled.size.x - 1] = definitions['wall-w']
+			compiled[i][0] = makeWall('w-e')
+			compiled[i][compiled.size.x - 1] = makeWall('w-w')
 		}
 
-		compiled[0][0] = definitions['wall-se']
-		compiled[compiled.size.y - 1][0] = definitions['wall-ne']
-		compiled[0][compiled.size.x - 1] = definitions['wall-sw']
-		compiled[compiled.size.y - 1][compiled.size.x - 1] = definitions['wall-nw']
+		compiled[0][0] = makeWall('w-se')
+		compiled[compiled.size.y - 1][0] = makeWall('w-ne')
+		compiled[0][compiled.size.x - 1] = makeWall('w-sw')
+		compiled[compiled.size.y - 1][compiled.size.x - 1] = makeWall('w-nw')
 
 		return compiled
 	}
 
-	{
-		const symbols = {
-			'b': ['background1'],
-			'B': ['background2'],
-			'z': ['background1', 'background2'],
-			'w': ['wall1'],
-			'm': ['mob1'],
-			'M': ['mob2'],
-			'p': ['portal1-2'],
-			'k': ['key1'],
-			'd': ['door1'],
+	function compileLevels () {
+		const levels = {}
+
+		{
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'W': ['mob3'],
+				'p': ['portal1-2'],
+				'k': ['key1'],
+				'd': ['door1'],
+			}
+
+			levels['l1'] = compileLevel(symbols, [
+				'wwwwwwwwwwwww',
+				'wzbwbbbwwbbbw',
+				'wbBMbBbbwbbbw',
+				'wbbBbWbbwbbbw',
+				'wbbzzbbbMbzzw',
+				'wbbzzBbbwbbbw',
+				'wbbbbbbbwzpbw',
+				'wbbzzBbbwbBbw',
+				'wwwwwwwwwwwww',
+			])
 		}
 
-		levels['l1'] = compileLevel(symbols, [
-			'wwwwwwwwwwwww',
-			'wzbwbbbbmbbbw',
-			'wbBbbBbkwbbbw',
-			'wbbBbbbbwbbbw',
-			'wbbbbbbbwbbbw',
-			'wbbdbBbbMbbbw',
-			'wbbbbbmbwbbbw',
-			'wbbbbBbbbbpbw',
-			'wwwwwwwwwwwww',
-		])
-	}
+		{
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'k': ['key1'],
+				'd': ['door1'],
+				'p': ['portal2-3'],
+			}
 
-	{
-		const symbols = {
-			'b': ['background1'],
-			'w': ['wall1'],
-			'm': ['mob1'],
-			'p': ['portal2-1'],
+			levels['l2'] = compileLevel(symbols, [
+				'wwwwwwwwwwwww',
+				'wkMbbbbbwbbbw',
+				'wmbbbbbbwbbbw',
+				'wbbbbbbbwbpbw',
+				'wbbbbbwbdbbbw',
+				'wbbbbbbbwwwww',
+				'wbbbMbbbbbbbw',
+				'wbbbbbbbwbbbw',
+				'wwwwwwwwwwwww',
+			])
 		}
 
-		levels['l2'] = compileLevel(symbols, [
-			'wwwwwwwwwwwww',
-			'wbbbbbbbbbbbw',
-			'wbbbbbbbbpbbw',
-			'wbbbbbbbbbbbw',
-			'wbbbbbwbbbbbw',
-			'wbbbbbbbbbbbw',
-			'wbbbbbbbbbbbw',
-			'wbbbbbbbbbbbw',
-			'wwwwwwwwwwwww',
-		])
+		{
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'k': ['key1'],
+				'd': ['door1'],
+				'p': ['portal3-4'],
+			}
+
+			levels['l3'] = compileLevel(symbols, [
+				'wwwwwwwwwwwww',
+				'wbbbbbbbbbbbw',
+				'wbbbbbwwwwwww',
+				'wbbbbbMbbbbbw',
+				'wwwwwmwbbbbbw',
+				'wbbbwkwbbbbbw',
+				'wbpbwwwbbbbbw',
+				'wbbbdbbbbbbbw',
+				'wwwwwwwwwwwww',
+			])
+		}
+
+		{
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'k': ['key1'],
+				'd': ['door1'],
+				'p': ['portal4-5'],
+			}
+
+			levels['l4'] = compileLevel(symbols, [
+				'wwwwwwwwwwwww',
+				'wbbbbbbbbbbbw',
+				'wbbbbbbbbpbbw',
+				'wbbbbbbbbbbbw',
+				'wbbbbbwbbbbbw',
+				'wbbbbbbbbbbbw',
+				'wbbbbbbbbbbbw',
+				'wbbbbbbbbbbbw',
+				'wwwwwwwwwwwww',
+			])
+		}
+
+		{
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'k': ['key1'],
+				'd': ['door1'],
+			}
+
+			levels['l5'] = compileLevel(symbols, [
+				'wwwwwww',
+				'wbbbbbw',
+				'wzzbbbw',
+				'wbbbzzw',
+				'wbbbbbw',
+				'wBbzzBw',
+				'wwbbbww',
+				'wBbbbBw',
+				'wwzzbww',
+				'wBbbbBw',
+				'wwbbbww',
+				'wBbbbBw',
+				'wwwwwww',
+			])
+
+			const boss = makeMob('boss', 'b1')
+			const bossFalse = {
+				...boss,
+				image: null,
+				behind: null,
+			}
+
+			levels['l5'][2][2] = boss
+			levels['l5'][2][3] = bossFalse
+			levels['l5'][2][4] = bossFalse
+
+			levels['l5'][3][2] = bossFalse
+			levels['l5'][3][3] = bossFalse
+			levels['l5'][3][4] = bossFalse
+
+			levels['l5'][4][2] = bossFalse
+			levels['l5'][4][3] = bossFalse
+			levels['l5'][4][4] = bossFalse
+		}
+
+		return levels
 	}
 
 	window.n33 = window.n33 || {}
 	Object.assign(window.n33, {
-		levels,
+		compileLevels,
 	})
 })()

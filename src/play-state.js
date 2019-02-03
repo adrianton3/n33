@@ -211,6 +211,10 @@
 						100,
 					)
 
+					if (nextCell.boss) {
+						setState('win')
+					}
+
 					return
 				} else {
 					audio.tone(440, 0.2)

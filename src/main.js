@@ -132,6 +132,7 @@
 		machine.addState('dead', n33.deadState)
 		machine.addState('stair', n33.stairState)
 		machine.addState('shop', n33.shopState)
+		machine.addState('win', n33.winState)
 
 		;(() => {
 			let lastTime = performance.now()

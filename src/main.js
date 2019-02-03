@@ -115,6 +115,7 @@
 		machine.addState('start', { tick (game, { setState }) { setState('play') } })
 		machine.addState('play', n33.playState)
 		machine.addState('dead', n33.deadState)
+		machine.addState('stair', n33.stairState)
 
 		;(() => {
 			let lastTime = performance.now()

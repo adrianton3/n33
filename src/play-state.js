@@ -228,6 +228,7 @@
 				player.level = nextCell.level
 				player.x = nextCell.x
 				player.y = nextCell.y
+				setState('stair')
 				return
 			}
 

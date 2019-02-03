@@ -84,32 +84,41 @@
 
 	function setup (extras) {
 		const game = { ...extras }
+
+		function init () {
+			game.world = {
+				player: {
+					x: 4,
+					y: 4,
+					level: 'l1',
+					direction: 'e',
+					lives: 3,
+					health: 100,
+					attack: 2,
+					armor: 1,
+					checkpoint: {
+						x: 4,
+						y: 4,
+						level: 'l1',
+					},
+				},
+			}
+
+			// compile levels
+		}
+
 		const canvas = document.getElementById('can')
 		game.context = setupContext(canvas)
 
 		const machine = makeMachine(game)
 		game.keys = setupInputHandlers(canvas, machine)
 
-		game.world = {
-			player: {
-				x: 4,
-				y: 4,
-				level: 'l1',
-				direction: 'e',
-				health: 100,
-				attack: 2,
-				armor: 1,
-				checkpoint: {
-					x: 4,
-					y: 4,
-					level: 'l1',
-				},
-			},
-		}
-
 		game.levels = n33.levels
 		game.particles = n33.makeParticles(game.context, game.images)
 		game.audio = n33.makeBuzzer()
+
+		init()
+		game.init = init
 
 		return { game, machine }
 	}

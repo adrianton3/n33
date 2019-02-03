@@ -5,14 +5,25 @@
 		draw ({ images, context }) {
 			context.drawImage(images['dead-screen'], 0, 0)
 		},
-		handleKeyDown ({ world, levels }, { setState }, { key }) {
+		handleKeyDown ({ world, levels, init }, { setState }, { key }) {
 			if (key === 'a') {
-				Object.assign(world.player, {
+				const { player } = world
+				Object.assign(player, {
 					x: 4,
 					y: 4,
 					direction: 'e',
 					health: 100,
 				})
+
+				if (player.lives > 0) {
+					player.lives--
+
+					player.level = player.checkpoint.level
+					player.x = player.checkpoint.x
+					player.y = player.checkpoint.y
+				} else {
+					init()
+				}
 
 				setState('play')
 			}

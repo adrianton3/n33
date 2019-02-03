@@ -53,6 +53,7 @@
 		'dead-screen': 'art/ui/dead-screen.png',
 		'stair-screen': 'art/ui/stair-screen.png',
 		'particle': 'art/particle.png',
+		'heart': 'art/ui/heart.png',
 	}
 
 	function loadImages () {

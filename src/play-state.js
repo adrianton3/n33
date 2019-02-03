@@ -119,13 +119,9 @@
 				}
 			}
 
-			// map
-			// mobs
-			// player
-			// effects
-			// border
-			// side panel
-			// stats
+			for (let i = 0; i < player.lives; i++) {
+				context.drawImage(images['heart'], 50 + i * 8, 2 + 26)
+			}
 		},
 		tick ({ particles }, { setState }, deltaTime) {
 			particles.tick(deltaTime)
@@ -219,10 +215,6 @@
 
 				player.health -= Math.max(nextCell.attack - player.armor, 0)
 				if (player.health <= 0) {
-					player.level = player.checkpoint.level
-					player.x = player.checkpoint.x
-					player.y = player.checkpoint.y
-
 					setState('dead')
 				}
 				return

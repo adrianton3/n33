@@ -1,9 +1,14 @@
 (() => {
 	'use strict'
 
+	let screenImage = 'stair-screen'
+
 	const stairState = {
+		enter (game, { info }) {
+			screenImage = info.screenImage
+		},
 		draw ({ images, context }) {
-			context.drawImage(images['stair-screen'], 0, 0)
+			context.drawImage(images[screenImage], 0, 0)
 		},
 		handleKeyDown ({ world, levels }, { setState }, { key }) {
 			if (key === 'a') {

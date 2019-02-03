@@ -25,13 +25,14 @@
 		}
 	}
 
-	function makePortal (image, level, x, y) {
+	function makePortal (image, level, x, y, screenImage) {
 		return {
 			type: 'portal',
 			image,
 			x,
 			y,
 			level,
+			screenImage,
 		}
 	}
 
@@ -90,8 +91,8 @@
 		'wall-ne': makeWall('w-ne'),
 		'mob1': makeMob('m1','b1'),
 		'mob2': makeMob('m2','b1'),
-		'portal1-2': makePortal('p1', 'l2', 4, 4),
-		'portal2-1': makePortal('p1', 'l1', 4, 4),
+		'portal1-2': makePortal('p1', 'l2', 4, 4, 'stair-screen'),
+		'portal2-1': makePortal('p1', 'l1', 4, 4, 'stair-screen'),
 		'key1': makeKey('k1', 'b1'),
 		'door1': makeDoor('d1', 'b1'),
 	}

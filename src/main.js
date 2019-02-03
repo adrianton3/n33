@@ -99,6 +99,11 @@
 				health: 100,
 				attack: 2,
 				armor: 1,
+				checkpoint: {
+					x: 4,
+					y: 4,
+					level: 'l1',
+				},
 			},
 		}
 

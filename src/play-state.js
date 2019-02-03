@@ -219,6 +219,10 @@
 
 				player.health -= Math.max(nextCell.attack - player.armor, 0)
 				if (player.health <= 0) {
+					player.level = player.checkpoint.level
+					player.x = player.checkpoint.x
+					player.y = player.checkpoint.y
+
 					setState('dead')
 				}
 				return
@@ -228,6 +232,11 @@
 				player.level = nextCell.level
 				player.x = nextCell.x
 				player.y = nextCell.y
+
+				player.checkpoint.level = nextCell.level
+				player.checkpoint.x = nextCell.x
+				player.checkpoint.y = nextCell.y
+
 				setState('stair', { screenImage: nextCell.screenImage })
 				return
 			}

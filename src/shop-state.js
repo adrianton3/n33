@@ -33,12 +33,13 @@
 			drawText(context, images, `${healthMaxCost[player.healthMax / 10 - 10]}`, 71, 26)
 		},
 		handleKeyDown ({ world, levels, init }, { setState }, { key }) {
+			const { player } = world
+
 			if (key === 'a') {
+				player.health = player.healthMax
 				setState('play')
 				return
 			}
-
-			const { player } = world
 
 			if (key === 'ArrowUp') {
 				if (player.xp > attackCost[player.attack]) {

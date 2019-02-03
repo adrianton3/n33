@@ -104,6 +104,7 @@
 
 		game.levels = n33.levels
 		game.particles = n33.makeParticles(game.context, game.images)
+		game.audio = n33.makeBuzzer()
 
 		return { game, machine }
 	}

@@ -136,7 +136,7 @@
 				frameIndex++
 			}
 		},
-		handleKeyDown ({ world, levels, particles }, { setState }, { key }) {
+		handleKeyDown ({ world, levels, particles, audio }, { setState }, { key }) {
 			const level = levels[world.player.level]
 			const { player } = world
 
@@ -185,6 +185,8 @@
 					setState('dead')
 				}
 
+				audio.tone(110, 0.05)
+
 				return
 			}
 
@@ -198,6 +200,7 @@
 					nextCell.image = nextCell.behind
 					nextCell.images = null
 
+					audio.tone(220, 0.1)
 					particles.explode(
 						nextPosition.x * tileSize.x - offset.x,
 						nextPosition.y * tileSize.y - offset.y,
@@ -206,6 +209,7 @@
 
 					return
 				} else {
+					audio.tone(440, 0.2)
 					particles.explode(
 						nextPosition.x * tileSize.x - offset.x,
 						nextPosition.y * tileSize.y - offset.y,

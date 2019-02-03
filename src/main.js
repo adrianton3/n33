@@ -125,7 +125,7 @@
 	n33.loadImages().then((images) => {
 		const { machine } = setup({ images })
 
-		machine.addState('start', { tick (game, { setState }) { setState('play') } })
+		machine.addState('start', n33.startState)
 		machine.addState('play', n33.playState)
 		machine.addState('dead', n33.deadState)
 		machine.addState('stair', n33.stairState)

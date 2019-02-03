@@ -8,12 +8,6 @@
 		handleKeyDown ({ world, levels, init }, { setState }, { key }) {
 			if (key === 'a') {
 				const { player } = world
-				Object.assign(player, {
-					x: 4,
-					y: 4,
-					direction: 'e',
-					health: 100,
-				})
 
 				if (player.lives > 0) {
 					player.lives--

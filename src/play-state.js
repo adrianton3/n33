@@ -180,7 +180,7 @@
 				player.x = nextPosition.x
 				player.y = nextPosition.y
 
-				player.health -= 5
+				player.health -= 1
 				if (player.health <= 0) {
 					setState('dead')
 				}

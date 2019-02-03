@@ -78,32 +78,25 @@
 	}
 
 	const definitions = {
-		'background1': makeFloor('b1'),
-		'background2': makeFloor(['b2', 'b2-1']),
-		'wall1': makeWall('w1'),
-		'wall-n': makeWall('w-n'),
-		'wall-nw': makeWall('w-nw'),
-		'wall-w': makeWall('w-w'),
-		'wall-sw': makeWall('w-sw'),
-		'wall-s': makeWall('w-s'),
-		'wall-se': makeWall('w-se'),
-		'wall-e': makeWall('w-e'),
-		'wall-ne': makeWall('w-ne'),
-		'mob1': makeMob('m1','b1'),
-		'mob2': makeMob('m2','b1'),
-		'portal1-2': makePortal('s1', 'l2', 10, 6, 'stair-screen'),
-		'portal2-3': makePortal('s1', 'l3', 3, 3, 'stair-screen'),
-		'portal3-4': makePortal('s1', 'l4', 4, 4, 'stair-screen'),
-		'portal4-5': makePortal('s1', 'l5', 3, 10, 'stair-screen'),
-		'key1': makeKey('k1', 'b1'),
-		'door1': makeDoor('d1', 'b1'),
+		'background1': [makeFloor, 'b1'],
+		'background2': [makeFloor, ['b2', 'b2-1']],
+		'wall1': [makeWall, 'w1'],
+		'mob1': [makeMob, 'm1','b1'],
+		'mob2': [makeMob, 'm2','b1'],
+		'portal1-2': [makePortal, 's1', 'l2', 10, 6, 'stair-screen'],
+		'portal2-3': [makePortal, 's1', 'l3', 3, 3, 'stair-screen'],
+		'portal3-4': [makePortal, 's1', 'l4', 4, 4, 'stair-screen'],
+		'portal4-5': [makePortal, 's1', 'l5', 3, 10, 'stair-screen'],
+		'key1': [makeKey, 'k1', 'b1'],
+		'door1': [makeDoor, 'd1', 'b1'],
 	}
 
 	function compileLevel (symbols, lines) {
 		const compiled = lines.map((line) =>
 			[...line].map((cell) => {
 				const index = Math.floor(Math.random() * symbols[cell].length)
-				return definitions[symbols[cell][index]]
+				const [ make, ...params ] = definitions[symbols[cell][index]]
+				return make(...params)
 			})
 		)
 
@@ -113,19 +106,19 @@
 		}
 
 		for (let i = 0; i < compiled.size.x; i++) {
-			compiled[0][i] = definitions['wall-s']
-			compiled[compiled.size.y - 1][i] = definitions['wall-n']
+			compiled[0][i] = makeWall('w-s')
+			compiled[compiled.size.y - 1][i] = makeWall('w-n')
 		}
 
 		for (let i = 0; i < compiled.size.y; i++) {
-			compiled[i][0] = definitions['wall-e']
-			compiled[i][compiled.size.x - 1] = definitions['wall-w']
+			compiled[i][0] = makeWall('w-e')
+			compiled[i][compiled.size.x - 1] = makeWall('w-w')
 		}
 
-		compiled[0][0] = definitions['wall-se']
-		compiled[compiled.size.y - 1][0] = definitions['wall-ne']
-		compiled[0][compiled.size.x - 1] = definitions['wall-sw']
-		compiled[compiled.size.y - 1][compiled.size.x - 1] = definitions['wall-nw']
+		compiled[0][0] = makeWall('w-se')
+		compiled[compiled.size.y - 1][0] = makeWall('w-ne')
+		compiled[0][compiled.size.x - 1] = makeWall('w-sw')
+		compiled[compiled.size.y - 1][compiled.size.x - 1] = makeWall('w-nw')
 
 		return compiled
 	}

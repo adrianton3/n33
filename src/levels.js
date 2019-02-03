@@ -70,6 +70,13 @@
 				hurtImage: 'm2-d',
 				xpReward: 15,
 			},
+			'm3': {
+				health: 6,
+				attack: 2,
+				armor: 0,
+				...bundleImages(['m3', 'm3-1']),
+				hurtImage: 'm3-d',
+			},
 		}
 
 		return {
@@ -81,10 +88,14 @@
 
 	const definitions = {
 		'background1': [makeFloor, 'b1'],
-		'background2': [makeFloor, ['b2', 'b2-1']],
+		'background2': [makeFloor, 'b2'],
+		'background3': [makeFloor, 'b3'],
+		'background4': [makeFloor, 'b4'],
+		'background5': [makeFloor, 'b5'],
 		'wall1': [makeWall, 'w1'],
 		'mob1': [makeMob, 'm1','b1'],
 		'mob2': [makeMob, 'm2','b1'],
+		'mob3': [makeMob, 'm3','b1'],
 		'portal1-2': [makePortal, 's1', 'l2', 10, 6, 'stair-screen'],
 		'portal2-3': [makePortal, 's1', 'l3', 3, 3, 'stair-screen'],
 		'portal3-4': [makePortal, 's1', 'l4', 4, 4, 'stair-screen'],
@@ -132,10 +143,11 @@
 			const symbols = {
 				'b': ['background1'],
 				'B': ['background2'],
-				'z': ['background1', 'background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
 				'w': ['wall1'],
 				'm': ['mob1'],
 				'M': ['mob2'],
+				'W': ['mob3'],
 				'p': ['portal1-2'],
 				'k': ['key1'],
 				'd': ['door1'],
@@ -145,11 +157,11 @@
 				'wwwwwwwwwwwww',
 				'wzbwbbbwwbbbw',
 				'wbBMbBbbwbbbw',
-				'wbbBbbbbwbbbw',
-				'wbbbbbbbMbbbw',
-				'wbbbbBbbwbbbw',
-				'wbbbbbbbwbpbw',
-				'wbbbbBbbwbBbw',
+				'wbbBbWbbwbbbw',
+				'wbbzzbbbMbzzw',
+				'wbbzzBbbwbbbw',
+				'wbbbbbbbwzpbw',
+				'wbbzzBbbwbBbw',
 				'wwwwwwwwwwwww',
 			])
 		}
@@ -158,7 +170,7 @@
 			const symbols = {
 				'b': ['background1'],
 				'B': ['background2'],
-				'z': ['background1', 'background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
 				'w': ['wall1'],
 				'm': ['mob1'],
 				'M': ['mob2'],
@@ -184,7 +196,7 @@
 			const symbols = {
 				'b': ['background1'],
 				'B': ['background2'],
-				'z': ['background1', 'background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
 				'w': ['wall1'],
 				'm': ['mob1'],
 				'M': ['mob2'],
@@ -210,7 +222,7 @@
 			const symbols = {
 				'b': ['background1'],
 				'B': ['background2'],
-				'z': ['background1', 'background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
 				'w': ['wall1'],
 				'm': ['mob1'],
 				'M': ['mob2'],
@@ -236,7 +248,7 @@
 			const symbols = {
 				'b': ['background1'],
 				'B': ['background2'],
-				'z': ['background1', 'background2'],
+				'z': ['background1', 'background2', 'background3', 'background4', 'background5'],
 				'w': ['wall1'],
 				'm': ['mob1'],
 				'M': ['mob2'],
@@ -247,13 +259,13 @@
 			levels['l5'] = compileLevel(symbols, [
 				'wwwwwww',
 				'wbbbbbw',
+				'wzzbbbw',
+				'wbbbzzw',
 				'wbbbbbw',
-				'wbbbbbw',
-				'wbbbbbw',
-				'wBbbbBw',
+				'wBbzzBw',
 				'wwbbbww',
 				'wBbbbBw',
-				'wwbbbww',
+				'wwzzbww',
 				'wBbbbBw',
 				'wwbbbww',
 				'wBbbbBw',

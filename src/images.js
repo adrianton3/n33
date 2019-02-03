@@ -49,6 +49,7 @@
 		'd': 'art/font/d.png',
 		'h': 'art/font/h.png',
 		'p': 'art/font/p.png',
+		'x': 'art/font/x.png',
 		'frame': 'art/ui/frame.png',
 		'start-screen': 'art/ui/start-screen.png',
 		'dead-screen': 'art/ui/dead-screen.png',

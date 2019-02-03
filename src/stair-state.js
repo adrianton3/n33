@@ -12,7 +12,7 @@
 		},
 		handleKeyDown ({ world, levels }, { setState }, { key }) {
 			if (key === 'a') {
-				setState('play')
+				setState('shop')
 			}
 		},
 	}

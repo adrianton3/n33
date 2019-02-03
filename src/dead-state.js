@@ -15,6 +15,8 @@
 					player.level = player.checkpoint.level
 					player.x = player.checkpoint.x
 					player.y = player.checkpoint.y
+
+					player.health = player.healthMax
 				} else {
 					init()
 				}

@@ -94,13 +94,15 @@
 					direction: 'e',
 					lives: 3,
 					health: 100,
-					attack: 2,
-					armor: 1,
+					healthMax: 100,
+					attack: 1,
+					armor: 0,
 					checkpoint: {
 						x: 4,
 						y: 4,
 						level: 'l1',
 					},
+					xp: 0,
 				},
 			}
 
@@ -129,6 +131,7 @@
 		machine.addState('play', n33.playState)
 		machine.addState('dead', n33.deadState)
 		machine.addState('stair', n33.stairState)
+		machine.addState('shop', n33.shopState)
 
 		;(() => {
 			let lastTime = performance.now()

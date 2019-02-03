@@ -53,6 +53,7 @@
 		'start-screen': 'art/ui/start-screen.png',
 		'dead-screen': 'art/ui/dead-screen.png',
 		'stair-screen': 'art/ui/stair-screen.png',
+		'shop-screen': 'art/ui/shop-screen.png',
 		'particle': 'art/particle.png',
 		'heart': 'art/ui/heart.png',
 	}

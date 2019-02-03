@@ -59,14 +59,14 @@
 				attack: 2,
 				armor: 0,
 				...bundleImages(['m1', 'm1-1', 'm1-2', 'm1-3']),
-				hurtImage: 'w1',
+				hurtImage: 'm1-d',
 			},
 			'm2': {
 				health: 10,
 				attack: 2,
 				armor: 0,
 				...bundleImages(['m2', 'm2-1']),
-				hurtImage: 'w1',
+				hurtImage: 'm2-d',
 			},
 		}
 
@@ -91,8 +91,15 @@
 		'wall-ne': makeWall('w-ne'),
 		'mob1': makeMob('m1','b1'),
 		'mob2': makeMob('m2','b1'),
+<<<<<<< HEAD
 		'portal1-2': makePortal('p1', 'l2', 4, 4, 'stair-screen'),
 		'portal2-1': makePortal('p1', 'l1', 4, 4, 'stair-screen'),
+=======
+		'portal1-2': makePortal('s1', 'l2', 10, 6),
+		'portal2-3': makePortal('s1', 'l3', 3, 3),
+		'portal3-4': makePortal('s1', 'l4', 4, 4),
+		'portal4-5': makePortal('s1', 'l5', 3, 10),
+>>>>>>> f6d2155... Add new levels
 		'key1': makeKey('k1', 'b1'),
 		'door1': makeDoor('d1', 'b1'),
 	}
@@ -145,13 +152,13 @@
 
 		levels['l1'] = compileLevel(symbols, [
 			'wwwwwwwwwwwww',
-			'wzbwbbbbmbbbw',
-			'wbBbbBbkwbbbw',
+			'wzbwbbbwwbbbw',
+			'wbBMbBbbwbbbw',
 			'wbbBbbbbwbbbw',
-			'wbbbbbbbwbbbw',
-			'wbbdbBbbMbbbw',
-			'wbbbbbmbwbbbw',
-			'wbbbbBbbbbpbw',
+			'wbbbbbbbMbbbw',
+			'wbbbbBbbwbbbw',
+			'wbbbbbbbwbpbw',
+			'wbbbbBbbwbBbw',
 			'wwwwwwwwwwwww',
 		])
 	}
@@ -159,12 +166,69 @@
 	{
 		const symbols = {
 			'b': ['background1'],
+			'B': ['background2'],
+			'z': ['background1', 'background2'],
 			'w': ['wall1'],
 			'm': ['mob1'],
-			'p': ['portal2-1'],
+			'M': ['mob2'],
+			'k': ['key1'],
+			'd': ['door1'],
+			'p': ['portal2-3'],
 		}
 
 		levels['l2'] = compileLevel(symbols, [
+			'wwwwwwwwwwwww',
+			'wkMbbbbbwbbbw',
+			'wmbbbbbbwbbbw',
+			'wbbbbbbbwbpbw',
+			'wbbbbbwbdbbbw',
+			'wbbbbbbbwwwww',
+			'wbbbMbbbbbbbw',
+			'wbbbbbbbwbbbw',
+			'wwwwwwwwwwwww',
+		])
+	}
+	
+		{
+		const symbols = {
+			'b': ['background1'],
+			'B': ['background2'],
+			'z': ['background1', 'background2'],
+			'w': ['wall1'],
+			'm': ['mob1'],
+			'M': ['mob2'],
+			'k': ['key1'],
+			'd': ['door1'],
+			'p': ['portal3-4'],
+		}
+
+		levels['l3'] = compileLevel(symbols, [
+			'wwwwwwwwwwwww',
+			'wbbbbbbbbbbbw',
+			'wbbbbbwwwwwww',
+			'wbbbbbMbbbbbw',
+			'wwwwwmwbbbbbw',
+			'wbbbwkwbbbbbw',
+			'wbpbwwwbbbbbw',
+			'wbbbdbbbbbbbw',
+			'wwwwwwwwwwwww',
+		])
+	}
+	
+		{
+		const symbols = {
+			'b': ['background1'],
+			'B': ['background2'],
+			'z': ['background1', 'background2'],
+			'w': ['wall1'],
+			'm': ['mob1'],
+			'M': ['mob2'],
+			'k': ['key1'],
+			'd': ['door1'],
+			'p': ['portal4-5'],
+		}
+
+		levels['l4'] = compileLevel(symbols, [
 			'wwwwwwwwwwwww',
 			'wbbbbbbbbbbbw',
 			'wbbbbbbbbpbbw',
@@ -174,6 +238,35 @@
 			'wbbbbbbbbbbbw',
 			'wbbbbbbbbbbbw',
 			'wwwwwwwwwwwww',
+		])
+	}
+	
+		{
+		const symbols = {
+			'b': ['background1'],
+			'B': ['background2'],
+			'z': ['background1', 'background2'],
+			'w': ['wall1'],
+			'm': ['mob1'],
+			'M': ['mob2'],
+			'k': ['key1'],
+			'd': ['door1'],
+		}
+
+		levels['l5'] = compileLevel(symbols, [
+			'wwwwwww',
+			'wbbbbbw',
+			'wbbbbbw',
+			'wbbbbbw',
+			'wbbbbbw',
+			'wBbbbBw',
+			'wwbbbww',
+			'wBbbbBw',
+			'wwbbbww',
+			'wBbbbBw',
+			'wwbbbww',
+			'wBbbbBw',
+			'wwwwwww',
 		])
 	}
 

@@ -77,6 +77,15 @@
 				...bundleImages(['m3', 'm3-1']),
 				hurtImage: 'm3-d',
 			},
+			'boss': {
+				health: 100,
+				attack: 5,
+				armor: 3,
+				...bundleImages('boss'),
+				// hurtImage: 'boss-d',
+				xpReward: 0,
+				boss: true,
+			},
 		}
 
 		return {
@@ -271,6 +280,25 @@
 				'wBbbbBw',
 				'wwwwwww',
 			])
+
+			const boss = makeMob('boss', 'b1')
+			const bossFalse = {
+				...boss,
+				image: null,
+				behind: null,
+			}
+
+			levels['l5'][2][2] = boss
+			levels['l5'][2][3] = bossFalse
+			levels['l5'][2][4] = bossFalse
+
+			levels['l5'][3][2] = bossFalse
+			levels['l5'][3][3] = bossFalse
+			levels['l5'][3][4] = bossFalse
+
+			levels['l5'][4][2] = bossFalse
+			levels['l5'][4][3] = bossFalse
+			levels['l5'][4][4] = bossFalse
 		}
 
 		return levels

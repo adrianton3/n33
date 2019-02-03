@@ -31,6 +31,7 @@
 		'm3': 'art/m3.png',
 		'm3-1': 'art/m3-1.png',
 		'm3-d': 'art/m3-d.png',
+		'boss': 'art/boss.png',
 		'p-n': 'art/p-n.png',
 		'p-w': 'art/p-w.png',
 		'p-s': 'art/p-s.png',

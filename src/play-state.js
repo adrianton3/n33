@@ -75,11 +75,13 @@
 							? cell.images[frameIndex % cell.images.length]
 							: cell.image
 
-						context.drawImage(
-							images[image],
-							j * tileSize.x - offset.x,
-							i * tileSize.y - offset.y,
-						)
+						if (image != null) {
+							context.drawImage(
+								images[image],
+								j * tileSize.x - offset.x,
+								i * tileSize.y - offset.y,
+							)
+						}
 					}
 				}
 			}

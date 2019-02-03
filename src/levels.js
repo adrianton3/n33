@@ -57,10 +57,10 @@
 			'm1': {
 				health: 30,
 				attack: 2,
-				armor: 0,
+				armor: 1,
 				...bundleImages(['m1', 'm1-1', 'm1-2', 'm1-3']),
 				hurtImage: 'm1-d',
-				xpReward: 10,
+				xpReward: 15,
 			},
 			'm2': {
 				health: 10,
@@ -68,7 +68,7 @@
 				armor: 0,
 				...bundleImages(['m2', 'm2-1']),
 				hurtImage: 'm2-d',
-				xpReward: 15,
+				xpReward: 10,
 			},
 			'm3': {
 				health: 6,
@@ -76,6 +76,7 @@
 				armor: 0,
 				...bundleImages(['m3', 'm3-1']),
 				hurtImage: 'm3-d',
+				xpReward: 5,
 			},
 			'boss': {
 				health: 100,

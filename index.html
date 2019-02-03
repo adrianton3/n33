@@ -20,6 +20,11 @@
         a {
             color: #c7f0d8;
         }
+
+        .clickable {
+            background-color: #c7f0d8;
+            color: #43523d;
+        }
     </style>
 </head>
 <body>
@@ -31,6 +36,7 @@
         <p>Welcome to the serpeant's dungeon!</p>
         <p>Move and attack with arrow keys</p>
         <p>Interact with A</p>
+        <p><span class="clickable" onclick="document.getElementById('can').style.filter=`hue-rotate(${Math.random()*360|0}deg)`">Hue rotate!</span></p>
         <br>
         <br>
         <br>

@@ -99,8 +99,6 @@
 		'door1': makeDoor('d1', 'b1'),
 	}
 
-	const levels = {}
-
 	function compileLevel (symbols, lines) {
 		const compiled = lines.map((line) =>
 			[...line].map((cell) => {
@@ -132,141 +130,147 @@
 		return compiled
 	}
 
-	{
-		const symbols = {
-			'b': ['background1'],
-			'B': ['background2'],
-			'z': ['background1', 'background2'],
-			'w': ['wall1'],
-			'm': ['mob1'],
-			'M': ['mob2'],
-			'p': ['portal1-2'],
-			'k': ['key1'],
-			'd': ['door1'],
-		}
+	function compileLevels () {
+		const levels = {}
 
-		levels['l1'] = compileLevel(symbols, [
-			'wwwwwwwwwwwww',
-			'wzbwbbbwwbbbw',
-			'wbBMbBbbwbbbw',
-			'wbbBbbbbwbbbw',
-			'wbbbbbbbMbbbw',
-			'wbbbbBbbwbbbw',
-			'wbbbbbbbwbpbw',
-			'wbbbbBbbwbBbw',
-			'wwwwwwwwwwwww',
-		])
-	}
-
-	{
-		const symbols = {
-			'b': ['background1'],
-			'B': ['background2'],
-			'z': ['background1', 'background2'],
-			'w': ['wall1'],
-			'm': ['mob1'],
-			'M': ['mob2'],
-			'k': ['key1'],
-			'd': ['door1'],
-			'p': ['portal2-3'],
-		}
-
-		levels['l2'] = compileLevel(symbols, [
-			'wwwwwwwwwwwww',
-			'wkMbbbbbwbbbw',
-			'wmbbbbbbwbbbw',
-			'wbbbbbbbwbpbw',
-			'wbbbbbwbdbbbw',
-			'wbbbbbbbwwwww',
-			'wbbbMbbbbbbbw',
-			'wbbbbbbbwbbbw',
-			'wwwwwwwwwwwww',
-		])
-	}
-	
 		{
-		const symbols = {
-			'b': ['background1'],
-			'B': ['background2'],
-			'z': ['background1', 'background2'],
-			'w': ['wall1'],
-			'm': ['mob1'],
-			'M': ['mob2'],
-			'k': ['key1'],
-			'd': ['door1'],
-			'p': ['portal3-4'],
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'p': ['portal1-2'],
+				'k': ['key1'],
+				'd': ['door1'],
+			}
+
+			levels['l1'] = compileLevel(symbols, [
+				'wwwwwwwwwwwww',
+				'wzbwbbbwwbbbw',
+				'wbBMbBbbwbbbw',
+				'wbbBbbbbwbbbw',
+				'wbbbbbbbMbbbw',
+				'wbbbbBbbwbbbw',
+				'wbbbbbbbwbpbw',
+				'wbbbbBbbwbBbw',
+				'wwwwwwwwwwwww',
+			])
 		}
 
-		levels['l3'] = compileLevel(symbols, [
-			'wwwwwwwwwwwww',
-			'wbbbbbbbbbbbw',
-			'wbbbbbwwwwwww',
-			'wbbbbbMbbbbbw',
-			'wwwwwmwbbbbbw',
-			'wbbbwkwbbbbbw',
-			'wbpbwwwbbbbbw',
-			'wbbbdbbbbbbbw',
-			'wwwwwwwwwwwww',
-		])
-	}
-	
 		{
-		const symbols = {
-			'b': ['background1'],
-			'B': ['background2'],
-			'z': ['background1', 'background2'],
-			'w': ['wall1'],
-			'm': ['mob1'],
-			'M': ['mob2'],
-			'k': ['key1'],
-			'd': ['door1'],
-			'p': ['portal4-5'],
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'k': ['key1'],
+				'd': ['door1'],
+				'p': ['portal2-3'],
+			}
+
+			levels['l2'] = compileLevel(symbols, [
+				'wwwwwwwwwwwww',
+				'wkMbbbbbwbbbw',
+				'wmbbbbbbwbbbw',
+				'wbbbbbbbwbpbw',
+				'wbbbbbwbdbbbw',
+				'wbbbbbbbwwwww',
+				'wbbbMbbbbbbbw',
+				'wbbbbbbbwbbbw',
+				'wwwwwwwwwwwww',
+			])
 		}
 
-		levels['l4'] = compileLevel(symbols, [
-			'wwwwwwwwwwwww',
-			'wbbbbbbbbbbbw',
-			'wbbbbbbbbpbbw',
-			'wbbbbbbbbbbbw',
-			'wbbbbbwbbbbbw',
-			'wbbbbbbbbbbbw',
-			'wbbbbbbbbbbbw',
-			'wbbbbbbbbbbbw',
-			'wwwwwwwwwwwww',
-		])
-	}
-	
 		{
-		const symbols = {
-			'b': ['background1'],
-			'B': ['background2'],
-			'z': ['background1', 'background2'],
-			'w': ['wall1'],
-			'm': ['mob1'],
-			'M': ['mob2'],
-			'k': ['key1'],
-			'd': ['door1'],
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'k': ['key1'],
+				'd': ['door1'],
+				'p': ['portal3-4'],
+			}
+
+			levels['l3'] = compileLevel(symbols, [
+				'wwwwwwwwwwwww',
+				'wbbbbbbbbbbbw',
+				'wbbbbbwwwwwww',
+				'wbbbbbMbbbbbw',
+				'wwwwwmwbbbbbw',
+				'wbbbwkwbbbbbw',
+				'wbpbwwwbbbbbw',
+				'wbbbdbbbbbbbw',
+				'wwwwwwwwwwwww',
+			])
 		}
 
-		levels['l5'] = compileLevel(symbols, [
-			'wwwwwww',
-			'wbbbbbw',
-			'wbbbbbw',
-			'wbbbbbw',
-			'wbbbbbw',
-			'wBbbbBw',
-			'wwbbbww',
-			'wBbbbBw',
-			'wwbbbww',
-			'wBbbbBw',
-			'wwbbbww',
-			'wBbbbBw',
-			'wwwwwww',
-		])
+		{
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'k': ['key1'],
+				'd': ['door1'],
+				'p': ['portal4-5'],
+			}
+
+			levels['l4'] = compileLevel(symbols, [
+				'wwwwwwwwwwwww',
+				'wbbbbbbbbbbbw',
+				'wbbbbbbbbpbbw',
+				'wbbbbbbbbbbbw',
+				'wbbbbbwbbbbbw',
+				'wbbbbbbbbbbbw',
+				'wbbbbbbbbbbbw',
+				'wbbbbbbbbbbbw',
+				'wwwwwwwwwwwww',
+			])
+		}
+
+		{
+			const symbols = {
+				'b': ['background1'],
+				'B': ['background2'],
+				'z': ['background1', 'background2'],
+				'w': ['wall1'],
+				'm': ['mob1'],
+				'M': ['mob2'],
+				'k': ['key1'],
+				'd': ['door1'],
+			}
+
+			levels['l5'] = compileLevel(symbols, [
+				'wwwwwww',
+				'wbbbbbw',
+				'wbbbbbw',
+				'wbbbbbw',
+				'wbbbbbw',
+				'wBbbbBw',
+				'wwbbbww',
+				'wBbbbBw',
+				'wwbbbww',
+				'wBbbbBw',
+				'wwbbbww',
+				'wBbbbBw',
+				'wwwwwww',
+			])
+		}
+
+		return levels
 	}
 
 	window.n33 = window.n33 || {}
 	Object.assign(window.n33, {
-		levels,
+		compileLevels,
 	})
 })()

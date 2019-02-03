@@ -104,7 +104,7 @@
 				},
 			}
 
-			// compile levels
+			game.levels = n33.compileLevels()
 		}
 
 		const canvas = document.getElementById('can')
@@ -113,7 +113,6 @@
 		const machine = makeMachine(game)
 		game.keys = setupInputHandlers(canvas, machine)
 
-		game.levels = n33.levels
 		game.particles = n33.makeParticles(game.context, game.images)
 		game.audio = n33.makeBuzzer()
 

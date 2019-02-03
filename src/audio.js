@@ -5,6 +5,7 @@
 		const context = new AudioContext()
 
 		const gain = context.createGain()
+		gain.gain.setValueAtTime(0.2, context.currentTime)
 
 		gain.connect(context.destination)
 

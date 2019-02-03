@@ -91,15 +91,10 @@
 		'wall-ne': makeWall('w-ne'),
 		'mob1': makeMob('m1','b1'),
 		'mob2': makeMob('m2','b1'),
-<<<<<<< HEAD
-		'portal1-2': makePortal('p1', 'l2', 4, 4, 'stair-screen'),
-		'portal2-1': makePortal('p1', 'l1', 4, 4, 'stair-screen'),
-=======
-		'portal1-2': makePortal('s1', 'l2', 10, 6),
-		'portal2-3': makePortal('s1', 'l3', 3, 3),
-		'portal3-4': makePortal('s1', 'l4', 4, 4),
-		'portal4-5': makePortal('s1', 'l5', 3, 10),
->>>>>>> f6d2155... Add new levels
+		'portal1-2': makePortal('s1', 'l2', 10, 6, 'stair-screen'),
+		'portal2-3': makePortal('s1', 'l3', 3, 3, 'stair-screen'),
+		'portal3-4': makePortal('s1', 'l4', 4, 4, 'stair-screen'),
+		'portal4-5': makePortal('s1', 'l5', 3, 10, 'stair-screen'),
 		'key1': makeKey('k1', 'b1'),
 		'door1': makeDoor('d1', 'b1'),
 	}

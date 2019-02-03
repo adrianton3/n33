@@ -51,7 +51,7 @@
 			}
 
 			if (key === 'ArrowLeft') {
-				if (player.xp > armorCost[player.armor]) {
+				if (player.xp >= armorCost[player.armor]) {
 					player.xp -= armorCost[player.armor]
 					player.armor++
 				}
@@ -61,7 +61,7 @@
 
 			if (key === 'ArrowRight') {
 				const index = player.healthMax / 10 - 10
-				if (player.xp > healthMaxCost[index]) {
+				if (player.xp >= healthMaxCost[index]) {
 					player.xp -= healthMaxCost[index]
 					player.healthMax += 10
 				}

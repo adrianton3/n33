@@ -42,7 +42,7 @@
 			}
 
 			if (key === 'ArrowUp') {
-				if (player.xp > attackCost[player.attack]) {
+				if (player.xp >= attackCost[player.attack]) {
 					player.xp -= attackCost[player.attack]
 					player.attack++
 				}

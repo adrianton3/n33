@@ -27,7 +27,7 @@
 			drawText(context, images, `${healthMaxCost[player.attack]}`, 71, 14)
 
 			drawText(context, images, `${player.armor}`, 32, 20)
-			drawText(context, images, `${healthMaxCost[player.attack]}`, 71, 20)
+			drawText(context, images, `${healthMaxCost[player.armor]}`, 71, 20)
 
 			drawText(context, images, `${player.healthMax}`, 32, 26)
 			drawText(context, images, `${healthMaxCost[player.healthMax / 10 - 10]}`, 71, 26)

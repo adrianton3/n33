@@ -160,6 +160,8 @@
 			} else if (key === 'ArrowRight') {
 				nextPosition.x++
 				player.direction = 'e'
+			} else {
+				return
 			}
 
 			if (

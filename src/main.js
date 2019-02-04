@@ -91,7 +91,7 @@
 					x: 4,
 					y: 4,
 					level: 'l1',
-					direction: 'e',
+					direction: 's',
 					lives: 3,
 					health: 100,
 					healthMax: 100,

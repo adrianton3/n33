@@ -82,7 +82,7 @@
 				health: 100,
 				attack: 5,
 				armor: 3,
-				...bundleImages('boss'),
+				...bundleImages(['boss', 'boss-1']),
 				// hurtImage: 'boss-d',
 				xpReward: 0,
 				boss: true,
@@ -286,6 +286,7 @@
 			const bossFalse = {
 				...boss,
 				image: null,
+				images: null,
 				behind: null,
 			}
 

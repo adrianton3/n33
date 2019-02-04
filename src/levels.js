@@ -56,11 +56,11 @@
 		const mobTypes = {
 			'm1': {
 				health: 30,
-				attack: 2,
+				attack: 4,
 				armor: 1,
 				...bundleImages(['m1', 'm1-1', 'm1-2', 'm1-3']),
 				hurtImage: 'm1-d',
-				xpReward: 15,
+				xpReward: 30,
 			},
 			'm2': {
 				health: 10,
@@ -72,11 +72,11 @@
 			},
 			'm3': {
 				health: 6,
-				attack: 2,
+				attack: 3,
 				armor: 0,
 				...bundleImages(['m3', 'm3-1']),
 				hurtImage: 'm3-d',
-				xpReward: 5,
+				xpReward: 10,
 			},
 			'boss': {
 				health: 100,
@@ -166,8 +166,8 @@
 			levels['l1'] = compileLevel(symbols, [
 				'wwwwwwwwwwwww',
 				'wzbwbbbwwbbbw',
-				'wbBMbBbbwbbbw',
-				'wbbBbWbbwbbbw',
+				'wbBMbBbbwbmbw',
+				'wbbBbMbbwbbbw',
 				'wbbzzbbbMbzzw',
 				'wbbzzBbbwbbbw',
 				'wbbbbbbbwzpbw',
@@ -184,6 +184,7 @@
 				'w': ['wall1'],
 				'm': ['mob1'],
 				'M': ['mob2'],
+				'W': ['mob3'],
 				'k': ['key1'],
 				'd': ['door1'],
 				'p': ['portal2-3'],
@@ -193,7 +194,7 @@
 				'wwwwwwwwwwwww',
 				'wkMbbbbbwbbbw',
 				'wmbbbbbbwbbbw',
-				'wbbbbbbbwbpbw',
+				'wbbbMbbbwbpbw',
 				'wbbbbbwbdbbbw',
 				'wbbbbbbbwwwww',
 				'wbbbMbbbbbbbw',
@@ -210,6 +211,7 @@
 				'w': ['wall1'],
 				'm': ['mob1'],
 				'M': ['mob2'],
+				'W': ['mob3'],
 				'k': ['key1'],
 				'd': ['door1'],
 				'p': ['portal3-4'],
@@ -217,11 +219,11 @@
 
 			levels['l3'] = compileLevel(symbols, [
 				'wwwwwwwwwwwww',
-				'wbbbbbbbbbbbw',
+				'wbbbbbMbbbbmw',
 				'wbbbbbwwwwwww',
 				'wbbbbbMbbbbbw',
 				'wwwwwmwbbbbbw',
-				'wbbbwkwbbbbbw',
+				'wbbbwkwbbWbbw',
 				'wbpbwwwbbbbbw',
 				'wbbbdbbbbbbbw',
 				'wwwwwwwwwwwww',
@@ -236,6 +238,7 @@
 				'w': ['wall1'],
 				'm': ['mob1'],
 				'M': ['mob2'],
+				'W': ['mob3'],
 				'k': ['key1'],
 				'd': ['door1'],
 				'p': ['portal4-5'],
@@ -243,13 +246,13 @@
 
 			levels['l4'] = compileLevel(symbols, [
 				'wwwwwwwwwwwww',
-				'wbbbbbbbbbbbw',
-				'wbbbbbbbbpbbw',
-				'wbbbbbbbbbbbw',
-				'wbbbbbwbbbbbw',
-				'wbbbbbbbbbbbw',
-				'wbbbbbbbbbbbw',
-				'wbbbbbbbbbbbw',
+				'wbbbbbbWbWbbw',
+				'wbbmbbbbWpWbw',
+				'wwwwwwwbbWbbw',
+				'wkwbbbwbbbbbw',
+				'wmwbbbwbbbbbw',
+				'wbwbbbwbbbWbw',
+				'wbWbbbdbbbbbw',
 				'wwwwwwwwwwwww',
 			])
 		}

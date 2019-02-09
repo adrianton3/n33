@@ -122,11 +122,8 @@
 			game.levels = n33.compileLevels()
 		}
 
-		const canvas = document.getElementById('can')
-		game.context = setupContext(canvas)
-
 		const machine = makeMachine(game)
-		game.keys = setupInputHandlers(canvas, machine)
+		game.keys = setupInputHandlers(game.context.canvas, machine)
 
 		game.particles = n33.makeParticles(game.context, game.images)
 		game.audio = n33.makeBuzzer()
@@ -137,28 +134,32 @@
 		return { game, machine }
 	}
 
-	n33.loadImages().then((images) => {
-		const { machine } = setup({ images })
+	{
+		const context = setupContext(document.getElementById('can'))
 
-		machine.addState('start', n33.startState)
-		machine.addState('play', n33.playState)
-		machine.addState('dead', n33.deadState)
-		machine.addState('stair', n33.stairState)
-		machine.addState('shop', n33.shopState)
-		machine.addState('win', n33.winState)
+		n33.loadImages().then((images) => {
+			const { machine } = setup({ context, images })
 
-		;(() => {
-			let lastTime = performance.now()
+			machine.addState('start', n33.startState)
+			machine.addState('play', n33.playState)
+			machine.addState('dead', n33.deadState)
+			machine.addState('stair', n33.stairState)
+			machine.addState('shop', n33.shopState)
+			machine.addState('win', n33.winState)
 
-			;(function loop() {
-				requestAnimationFrame(loop)
+			;(() => {
+				let lastTime = performance.now()
 
-				const now = performance.now()
-				machine.tick(now - lastTime)
-				lastTime = now
+				;(function loop() {
+					requestAnimationFrame(loop)
 
-				machine.draw()
+					const now = performance.now()
+					machine.tick(now - lastTime)
+					lastTime = now
+
+					machine.draw()
+				})()
 			})()
-		})()
-	})
+		})
+	}
 })()

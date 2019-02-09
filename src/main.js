@@ -54,14 +54,27 @@
 	}
 
 	function setupInputHandlers (canvas, machine) {
+		const ignore = new Set([
+			'F1', 'F2', 'F3', 'F4', 'F5', 'F6',
+			'F7', 'F8', 'F9', 'F10', 'F11', 'F12'
+		])
+
 		const keys = {}
 
 		window.addEventListener('keydown', (event) => {
+			if (ignore.has(event.key)) {
+				return
+			}
+
 			keys[event.key] = true
 			machine.handleKeyDown(event)
 		})
 
 		window.addEventListener('keyup', (event) => {
+			if (ignore.has(event.key)) {
+				return
+			}
+
 			keys[event.key] = false
 			machine.handleKeyUp(event)
 		})
